@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminData() {
-  const router = useRouter();
+  const router = useNavigate();
   const [activeTab, setActiveTab] = useState("jogos");
 
   const [medicalRecords, setMedicalRecords] = useState([

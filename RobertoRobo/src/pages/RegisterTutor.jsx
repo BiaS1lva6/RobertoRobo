@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterTutor() {
-  const router = useRouter()
+  const router = useNavigate()
   const [showQRCode, setShowQRCode] = useState(false)
 
   const handleContinue = () => {

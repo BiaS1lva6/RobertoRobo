@@ -1,9 +1,9 @@
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"
 
 export default function Profile() {
-  const router = useRouter()
+  const router = useNavigate()
   const { user } = useAuth()
 
   const [profile] = useState({

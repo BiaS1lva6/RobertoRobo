@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext()
 
@@ -33,7 +33,7 @@ const MOCK_USERS = {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
-  const router = useRouter()
+  const router = useNavigate()
 
   useEffect(() => {
     const savedUser = localStorage.getItem("roberto_user")

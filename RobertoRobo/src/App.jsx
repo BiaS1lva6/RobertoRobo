@@ -1,41 +1,30 @@
-import React, { Suspense } from "react";
-import { Analytics } from "@vercel/analytics/react";
+import { BrowserRouter as Router, Routes, Route } from "react-router";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./index.css";
 import { AuthProvider } from "./contexts/AuthContext";
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
+import UserDashboard from "./pages/UserDashboard";
+import GamesPage from "./pages/GamesPage";
+import PerformancePage from "./pages/Performance";
 
-function App({ children }) {
+function App() {
   return (
-    <html lang="pt-BR">
-      <head>
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-        />
-        <title>Roberto Robo - Educação para Autismo</title>
-        <meta
-          name="description"
-          content="Plataforma educacional para crianças autistas"
-        />
-      </head>
-      <body>
-        <AuthProvider>
-          <Suspense fallback={null}>{children}</Suspense>
-        </AuthProvider>
-        <Analytics />
-        <script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-          crossOrigin="anonymous"
-          async
-        />
-      </body>
-    </html>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Páginas públicas */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+
+          {/* Páginas privadas */}
+          <Route path="/dashboard" element={<UserDashboard />} />
+          <Route path="/games" element={<GamesPage />} />
+          <Route path="/user/performance" element={<PerformancePage />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

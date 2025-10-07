@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 
 const questions = [
@@ -15,7 +15,7 @@ const questions = [
 ];
 
 export default function ShapesGame() {
-  const router = useRouter();
+  const router = useNavigate();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
 

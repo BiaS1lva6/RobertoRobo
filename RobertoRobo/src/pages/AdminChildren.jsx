@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import StatsCard from "@/components/StatsCard";
 
 export default function AdminChildren() {
-  const router = useRouter();
+  const router = useNavigate();
 
   const [children] = useState([
     { id: 1, name: "João Silva", age: 6, level: 1, progress: 45 },

@@ -1,8 +1,8 @@
-import { useRouter } from "next/navigation"
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"
 
 export default function AdminDashboard() {
-  const router = useRouter()
+  const router = useNavigate()
   const { logout, user } = useAuth()
 
   return (

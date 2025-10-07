@@ -1,8 +1,8 @@
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 
 export default function GameComplete() {
-  const router = useRouter();
+  const router = useNavigate();
 
   return (
     <div

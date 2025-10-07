@@ -1,7 +1,7 @@
-import { useRouter } from "next/navigation"
+import { useNavigate } from "react-router-dom";
 
 export default function Header({ title, showBackButton = false, showLogoutButton = false }) {
-  const router = useRouter()
+  const router = useNavigate()
 
   const handleBack = () => {
     router.back()

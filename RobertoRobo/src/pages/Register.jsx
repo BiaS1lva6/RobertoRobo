@@ -1,9 +1,9 @@
-import { useRouter } from "next/navigation"
+import { useNavigate } from "react-router-dom";
 import YellowCard from "@/components/YellowCard"
 import QRCodeDisplay from "@/components/QRCodeDisplay"
 
 export default function RegisterQRCode() {
-  const router = useRouter()
+  const router = useNavigate()
 
   const handleGenerateQRCode = () => {
     alert("QR Code gerado com sucesso! Use este código para fazer login.")

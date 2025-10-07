@@ -1,7 +1,6 @@
-import { useRouter } from "next/navigation"
-
+import { useNavigate } from "react-router-dom";
 export default function GamesMenu() {
-  const router = useRouter()
+  const router = useNavigate()
 
   return (
     <div className="purple-gradient" style={{ minHeight: "100vh", padding: "2rem", position: "relative" }}>
