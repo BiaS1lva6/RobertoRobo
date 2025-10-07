@@ -12,7 +12,11 @@ export function AuthProvider({ children }) {
   const login = async (email, senha) => {
     try {
       // Simulação de autenticação
-      if (email === "admin@roberto.com" && senha === "admin123") {
+      if (
+        (email === "admin@roberto.com" && senha === "admin123") ||
+        (email === "tutor@roberto.com" && senha === "tutor123") ||
+        (email === "joao@roberto.com" && senha === "joao123")
+      ) {
         setUser({ email });
         navigate("/dashboard"); // Redireciona para o dashboard após login bem-sucedido
       } else {
