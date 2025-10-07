@@ -1,27 +1,27 @@
-import { useState } from "react"
-import { useAuth } from "../contexts/AuthContext"
+import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Login() {
-  const { login } = useAuth()
-  const [showPassword, setShowPassword] = useState(false)
-  const [useQRCode, setUseQRCode] = useState(false)
-  const [error, setError] = useState("")
+  const { login } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
+  const [useQRCode, setUseQRCode] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     senha: "",
-  })
+  });
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError("")
+    e.preventDefault();
+    setError("");
 
     try {
-      await login(formData.email, formData.senha)
+      await login(formData.email, formData.senha);
     } catch (err) {
-      setError(err.message)
-      console.error("[v0] Erro no login:", err)
+      setError(err.message);
+      console.error("[v0] Erro no login:", err);
     }
-  }
+  };
 
   if (useQRCode) {
     return (
@@ -30,13 +30,35 @@ export default function Login() {
           <div className="logo-container">
             <i className="bi bi-robot"></i>
           </div>
-          <h2 style={{ fontWeight: "700", color: "var(--text-purple)", marginBottom: "1.5rem" }}>Roberto Robô</h2>
+          <h2
+            style={{
+              fontWeight: "700",
+              color: "var(--text-purple)",
+              marginBottom: "1.5rem",
+            }}
+          >
+            Roberto Robô
+          </h2>
 
           <div className="qr-container">
-            <i className="bi bi-qr-code" style={{ fontSize: "12rem", color: "var(--text-dark)" }}></i>
+            <i
+              className="bi bi-qr-code"
+              style={{
+                fontSize: "12rem",
+                color: "var(--text-dark)",
+              }}
+            ></i>
           </div>
 
-          <p style={{ color: "var(--text-purple)", fontWeight: "600", marginTop: "1rem" }}>Escanear QR Code</p>
+          <p
+            style={{
+              color: "var(--text-purple)",
+              fontWeight: "600",
+              marginTop: "1rem",
+            }}
+          >
+            Escanear QR Code
+          </p>
 
           <button
             onClick={() => setUseQRCode(false)}
@@ -53,7 +75,7 @@ export default function Login() {
           </button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -62,7 +84,15 @@ export default function Login() {
         <div className="logo-container">
           <i className="bi bi-robot"></i>
         </div>
-        <h2 style={{ fontWeight: "700", color: "var(--text-purple)", marginBottom: "1.5rem" }}>Roberto Robô</h2>
+        <h2
+          style={{
+            fontWeight: "700",
+            color: "var(--text-purple)",
+            marginBottom: "1.5rem",
+          }}
+        >
+          Roberto Robô
+        </h2>
 
         {error && (
           <div
@@ -81,21 +111,37 @@ export default function Login() {
 
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: "1rem", textAlign: "left" }}>
-            <label style={{ fontWeight: "600", color: "var(--text-purple)", display: "block", marginBottom: "0.5rem" }}>
+            <label
+              style={{
+                fontWeight: "600",
+                color: "var(--text-purple)",
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
               Email
             </label>
             <input
               type="email"
               className="form-input"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               placeholder="seu@email.com"
               required
             />
           </div>
 
           <div style={{ marginBottom: "1.5rem", textAlign: "left" }}>
-            <label style={{ fontWeight: "600", color: "var(--text-purple)", display: "block", marginBottom: "0.5rem" }}>
+            <label
+              style={{
+                fontWeight: "600",
+                color: "var(--text-purple)",
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
               Senha
             </label>
             <div style={{ position: "relative" }}>
@@ -103,7 +149,9 @@ export default function Login() {
                 type={showPassword ? "text" : "password"}
                 className="form-input"
                 value={formData.senha}
-                onChange={(e) => setFormData({ ...formData, senha: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, senha: e.target.value })
+                }
                 required
               />
               <i
@@ -126,11 +174,25 @@ export default function Login() {
           </button>
         </form>
 
-        <div style={{ marginTop: "1rem", fontSize: "0.85rem", color: "var(--text-purple)" }}>
-          <p style={{ marginBottom: "0.5rem", fontWeight: "600" }}>Contas de teste:</p>
-          <p style={{ margin: "0.25rem 0" }}>Admin: admin@roberto.com / admin123</p>
-          <p style={{ margin: "0.25rem 0" }}>Tutor: tutor@roberto.com / tutor123</p>
-          <p style={{ margin: "0.25rem 0" }}>Usuário: joao@roberto.com / joao123</p>
+        <div
+          style={{
+            marginTop: "1rem",
+            fontSize: "0.85rem",
+            color: "var(--text-purple)",
+          }}
+        >
+          <p style={{ marginBottom: "0.5rem", fontWeight: "600" }}>
+            Contas de teste:
+          </p>
+          <p style={{ margin: "0.25rem 0" }}>
+            Admin: admin@roberto.com / admin123
+          </p>
+          <p style={{ margin: "0.25rem 0" }}>
+            Tutor: tutor@roberto.com / tutor123
+          </p>
+          <p style={{ margin: "0.25rem 0" }}>
+            Usuário: joao@roberto.com / joao123
+          </p>
         </div>
 
         <div style={{ marginTop: "1rem" }}>
@@ -149,5 +211,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  )
+  );
 }
