@@ -1,16 +1,50 @@
-# React + Vite
+# 🤖 Roberto Robo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+*Roberto Robo* é um projeto criado com o objetivo de apoiar *crianças autistas* através da *tecnologia e da interação digital*.  
+O robô foi desenvolvido para oferecer uma experiência educativa, divertida e inclusiva, ajudando no *desenvolvimento social, emocional e cognitivo* das crianças de forma leve e acessível.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Funcionalidades
 
-## React Compiler
+- 🗣 *Interação com respostas personalizadas*  
+- 🎮 *Atividades lúdicas e educativas*  
+- 💬 *Comunicação simples e empática*  
+- 🎨 *Interface colorida e amigável*  
+- 📱 *Design responsivo e intuitivo*
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+---
 
-## Expanding the ESLint configuration
+## 💡 Objetivo do Projeto
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+O *Roberto Robo* busca promover *inclusão e aprendizado através da tecnologia, sendo uma ferramenta de apoio no desenvolvimento de **habilidades sociais, emocionais e de comunicação*.  
+A proposta é usar o poder da tecnologia para tornar o aprendizado mais acolhedor e divertido para crianças com Transtorno do Espectro Autista (TEA).
+
+---
+
+## 🛠 Tecnologias Utilizadas
+
+O projeto foi desenvolvido com as seguintes tecnologias:
+
+- [React](https://reactjs.org/)  
+- [Vite](https://vitejs.dev/)  
+- [Bootstrap](https://getbootstrap.com/)  
+- [Bootstrap Icons](https://icons.getbootstrap.com/)  
+- [React DOM](https://reactjs.org/docs/react-dom.html)
+
+---
+
+## ⚙ Instalação e Uso
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/BiaS1lva6/RobertoRobo.git
+
+# 2. Acesse a pasta do projeto
+cd RobertoRobo
+
+# 3. Instale as dependências
+npm install
+
+# 4. Inicie o servidor de desenvolvimento
+npm run dev
