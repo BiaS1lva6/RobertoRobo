@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import YellowCard from "../components/YellowCard";
 import QRCodeDisplay from "../components/QRCodeDisplay";
+import Footer from "../components/Footer";
 
 export default function LoginQRCode() {
   const router = useNavigate();
@@ -62,6 +63,7 @@ export default function LoginQRCode() {
           </button>
         </div>
       </YellowCard>
+      <Footer/>
     </div>
   );
 }

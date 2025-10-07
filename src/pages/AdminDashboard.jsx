@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
+import Footer from "../components/Footer";
 
 export default function AdminDashboard() {
   const router = useNavigate();
@@ -51,6 +52,7 @@ export default function AdminDashboard() {
           Sair
         </button>
       </div>
+      <Footer/>
     </div>
   );
 }

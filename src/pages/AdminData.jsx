@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import Footer from "../components/Footer";
 
 export default function AdminData() {
   const router = useNavigate();
@@ -329,6 +330,7 @@ export default function AdminData() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

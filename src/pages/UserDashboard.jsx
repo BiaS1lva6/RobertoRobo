@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
+import Footer from "../components/Footer";
 
 export default function UserDashboard() {
   const navigate = useNavigate(); // Renomeado para "navigate" para maior clareza
@@ -47,6 +48,7 @@ export default function UserDashboard() {
           Sair
         </button>
       </div>
+      <Footer/>
     </div>
   );
 }

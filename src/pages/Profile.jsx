@@ -1,10 +1,11 @@
-import { useState } from "react"
+import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../contexts/AuthContext";
+import Footer from "../components/Footer";
 
 export default function Profile() {
-  const router = useNavigate()
-  const { user } = useAuth()
+  const navigate = useNavigate(); // Hook para navegação
+  const { user } = useAuth();
 
   const [profile] = useState({
     name: user?.nome || "João Silva",
@@ -26,27 +27,27 @@ export default function Profile() {
         description: "Prescrição de vitamina D",
       },
     ],
-  })
+  });
 
   return (
     <div className="purple-gradient" style={{ minHeight: "100vh", padding: "2rem" }}>
       <button
-        onClick={() => router.push("/user/dashboard")}
-        style={{
-          position: "absolute",
-          top: "20px",
-          right: "20px",
-          background: "white",
-          border: "none",
-          borderRadius: "10px",
-          padding: "0.5rem 1.5rem",
-          color: "#7C3AED",
-          fontWeight: "600",
-          cursor: "pointer",
-        }}
-      >
-        Voltar
-      </button>
+  onClick={() => navigate(-1)} // Volta para a página anterior
+  style={{
+    position: "absolute",
+    top: "20px",
+    right: "20px",
+    background: "white",
+    border: "none",
+    borderRadius: "10px",
+    padding: "0.5rem 1.5rem",
+    color: "#7C3AED",
+    fontWeight: "600",
+    cursor: "pointer",
+  }}
+>
+  Voltar
+</button>
 
       <div className="container" style={{ maxWidth: "800px" }}>
         <div
@@ -107,6 +108,8 @@ export default function Profile() {
           </div>
         </div>
       </div>
+            <Footer/>
+      
     </div>
-  )
+  );
 }

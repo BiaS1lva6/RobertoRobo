@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router";
+import Footer from "../components/Footer";
 
 export default function RegisterTutor() {
   const router = useNavigate()
@@ -61,6 +62,7 @@ export default function RegisterTutor() {
           Cadastrar Tutor
         </button>
       </div>
+      <Footer/>
     </div>
   )
 }

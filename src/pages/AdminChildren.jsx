@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import Header from "../components/Header";
 import StatsCard from "../components/StatsCard";
+import Footer from "../components/Footer";
 
 export default function AdminChildren() {
   const router = useNavigate();
@@ -98,6 +99,7 @@ export default function AdminChildren() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

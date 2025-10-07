@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import Footer from "../components/Footer";
 
 export default function Login() {
   const { login } = useAuth();
@@ -210,6 +211,8 @@ export default function Login() {
           </button>
         </div>
       </div>
+            <Footer/>
+      
     </div>
   );
 }

@@ -1,26 +1,27 @@
 import { useNavigate } from "react-router";
+import Footer from "../components/Footer";
 export default function GamesMenu() {
-  const router = useNavigate()
+  const navigate = useNavigate(); // Hook para navegação
 
   return (
     <div className="purple-gradient" style={{ minHeight: "100vh", padding: "2rem", position: "relative" }}>
       <button
-        onClick={() => router.push("/user/dashboard")}
-        style={{
-          position: "absolute",
-          top: "20px",
-          left: "20px",
-          background: "white",
-          border: "none",
-          borderRadius: "10px",
-          padding: "0.5rem 1rem",
-          color: "#7C3AED",
-          fontWeight: "600",
-          cursor: "pointer",
-        }}
-      >
-        Voltar
-      </button>
+  onClick={() => navigate(-1)} // Volta para a página anterior
+  style={{
+    position: "absolute",
+    top: "20px",
+    left: "20px",
+    background: "white",
+    border: "none",
+    borderRadius: "10px",
+    padding: "0.5rem 1rem",
+    color: "#7C3AED",
+    fontWeight: "600",
+    cursor: "pointer",
+  }}
+>
+  Voltar
+</button>
 
       <div className="container text-center">
         <div
@@ -143,6 +144,7 @@ export default function GamesMenu() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   )
 }

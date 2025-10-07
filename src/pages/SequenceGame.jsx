@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Footer from "../components/Footer";
 
 const shapes = [
   { id: "triangle", name: "Triângulo", color: "#10B981", symbol: "▲" },
@@ -85,6 +86,7 @@ export default function SequenceGame() {
           </div>
         )}
       </div>
+      <Footer/>
     </div>
   );
 }

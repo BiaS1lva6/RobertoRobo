@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "../components/Header";
 import StatsCard from "../components/StatsCard";
+import Footer from "../components/Footer";
 
 export default function AdminReports() {
   const [reports] = useState([
@@ -75,6 +76,7 @@ export default function AdminReports() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }
