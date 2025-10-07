@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import YellowCard from "@/components/YellowCard"
 import QRCodeDisplay from "@/components/QRCodeDisplay"
 

@@ -1,13 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import YellowCard from "@/components/YellowCard"
 import QRCodeDisplay from "@/components/QRCodeDisplay"
 
-export default function RegisterTutorQRCode() {
+export default function RegisterQRCode() {
   const router = useNavigate()
 
   const handleGenerateQRCode = () => {
-    alert("QR Code do tutor gerado com sucesso!")
-    router.push("/admin/dashboard")
+    alert("QR Code gerado com sucesso! Use este código para fazer login.")
+    router.push("/login-qrcode")
   }
 
   return (
@@ -20,9 +20,7 @@ export default function RegisterTutorQRCode() {
           <h3 className="fw-bold" style={{ color: "var(--text-dark)" }}>
             Roberto Robo
           </h3>
-          <p style={{ color: "var(--text-dark)", fontSize: "0.9rem", marginTop: "1rem" }}>
-            Cadastro de Tutor com QR Code
-          </p>
+          <p style={{ color: "var(--text-dark)", fontSize: "0.9rem", marginTop: "1rem" }}>Cadastro com QR Code</p>
         </div>
 
         <div className="d-flex justify-content-center mb-4">
@@ -30,16 +28,16 @@ export default function RegisterTutorQRCode() {
         </div>
 
         <p className="text-center mb-3" style={{ color: "var(--text-dark)", fontSize: "0.85rem" }}>
-          QR Code para acesso rápido do tutor
+          Salve este QR Code para fazer login rapidamente
         </p>
 
         <button onClick={handleGenerateQRCode} className="btn btn-yellow w-100 mb-3">
-          Gerar QR Code do Tutor
+          Gerar Meu QR Code
         </button>
 
         <div className="text-center">
           <button
-            onClick={() => router.push("/register-tutor")}
+            onClick={() => router.push("/register")}
             className="btn btn-link"
             style={{ color: "var(--text-dark)", textDecoration: "none" }}
           >

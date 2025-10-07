@@ -3,11 +3,11 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./index.css";
 import { AuthProvider } from "./contexts/AuthContext";
-import LoginPage from "./pages/Login";
-import RegisterPage from "./pages/Register";
 import UserDashboard from "./pages/UserDashboard";
-import GamesPage from "./pages/GamesPage";
-import PerformancePage from "./pages/Performance";
+import Games from "./pages/Games";
+import Performance from "./pages/Performance";
+import Login from "./pages/Login";
+import RegisterTutor from "./pages/RegisterTutor";
 
 function App() {
   return (
@@ -15,13 +15,13 @@ function App() {
       <Router>
         <Routes>
           {/* Páginas públicas */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<RegisterTutor />} />
 
           {/* Páginas privadas */}
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/games" element={<GamesPage />} />
-          <Route path="/user/performance" element={<PerformancePage />} />
+          <Route path="/user/performance" element={<Performance />} />
         </Routes>
       </Router>
     </AuthProvider>
