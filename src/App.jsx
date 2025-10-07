@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./index.css";
@@ -11,9 +11,12 @@ import Performance from "./pages/Performance";
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <Routes>
+          {/* Redireciona o caminho raiz para a página de login */}
+          <Route path="/" element={<Navigate to="/login" />} />
+
           {/* Páginas públicas */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterTutor />} />
@@ -23,8 +26,8 @@ function App() {
           <Route path="/games" element={<GamesMenu />} />
           <Route path="/user/performance" element={<Performance />} />
         </Routes>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 
