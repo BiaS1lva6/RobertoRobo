@@ -12,13 +12,15 @@ export function AuthProvider({ children }) {
   const login = async (email, senha) => {
     try {
       // Simulação de autenticação
-      if (
-        (email === "admin@roberto.com" && senha === "admin123") ||
-        (email === "tutor@roberto.com" && senha === "tutor123") ||
-        (email === "joao@roberto.com" && senha === "joao123")
-      ) {
-        setUser({ email });
-        navigate("/dashboard"); // Redireciona para o dashboard após login bem-sucedido
+      if (email === "admin@roberto.com" && senha === "admin123") {
+        setUser({ email, tipo: "admin" });
+        navigate("/admin/dashboard"); // Redireciona para o dashboard administrativo
+      } else if (email === "tutor@roberto.com" && senha === "tutor123") {
+        setUser({ email, tipo: "tutor" });
+        navigate("/admin/dashboard"); // Redireciona para o dashboard do tutor
+      } else if (email === "joao@roberto.com" && senha === "joao123") {
+        setUser({ email, tipo: "usuario" });
+        navigate("/dashboard"); // Redireciona para o dashboard do usuário
       } else {
         throw new Error("Credenciais inválidas");
       }

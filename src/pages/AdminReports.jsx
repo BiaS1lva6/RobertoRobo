@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Header from "@/components/Header";
-import StatsCard from "@/components/StatsCard";
+import Header from "../components/Header";
+import StatsCard from "../components/StatsCard";
 
 export default function AdminReports() {
   const [reports] = useState([

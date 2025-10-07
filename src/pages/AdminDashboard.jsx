@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../contexts/AuthContext";
 
 export default function AdminDashboard() {
-  const router = useNavigate()
-  const { logout, user } = useAuth()
+  const router = useNavigate();
+  const { logout, user } = useAuth();
 
   return (
     <div className="purple-gradient">
@@ -12,20 +12,22 @@ export default function AdminDashboard() {
           <h1>Painel {user?.tipo === "admin" ? "Administrativo" : "do Tutor"}</h1>
         </div>
 
-        <p style={{ color: "white", fontSize: "1.2rem", marginBottom: "3rem" }}>Bem-vindo, {user?.nome}!</p>
+        <p style={{ color: "white", fontSize: "1.2rem", marginBottom: "3rem" }}>
+          Bem-vindo, {user?.nome}!
+        </p>
 
         <div className="d-flex justify-content-center gap-4">
-          <button className="icon-button" onClick={() => router.push("/admin/children")}>
+          <button className="icon-button" onClick={() => router("/admin/children")}>
             <i className="bi bi-people-fill"></i>
             <span>Crianças</span>
           </button>
 
-          <button className="icon-button" onClick={() => router.push("/admin/reports")}>
+          <button className="icon-button" onClick={() => router("/admin/reports")}>
             <i className="bi bi-bar-chart-fill"></i>
             <span>Relatórios</span>
           </button>
 
-          <button className="icon-button" onClick={() => router.push("/admin/data")}>
+          <button className="icon-button" onClick={() => router("/admin/data")}>
             <i className="bi bi-currency-dollar"></i>
             <span>Dados</span>
           </button>
@@ -50,5 +52,5 @@ export default function AdminDashboard() {
         </button>
       </div>
     </div>
-  )
+  );
 }

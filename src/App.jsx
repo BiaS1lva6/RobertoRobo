@@ -8,6 +8,11 @@ import RegisterTutor from "./pages/RegisterTutor";
 import UserDashboard from "./pages/UserDashboard";
 import GamesMenu from "./pages/GamesMenu";
 import Performance from "./pages/Performance";
+import Profile from "./pages/Profile";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminChildren from "./pages/AdminChildren";
+import AdminReports from "./pages/AdminReports";
+import AdminData from "./pages/AdminData";
 
 function App() {
   return (
@@ -25,6 +30,13 @@ function App() {
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/games" element={<GamesMenu />} />
           <Route path="/user/performance" element={<Performance />} />
+          <Route path="/user/profile" element={<Profile />} />
+
+          {/* Páginas administrativas */}
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/children" element={<AdminChildren />} />
+          <Route path="/admin/reports" element={<AdminReports />} />
+          <Route path="/admin/data" element={<AdminData />} />
         </Routes>
       </AuthProvider>
     </Router>

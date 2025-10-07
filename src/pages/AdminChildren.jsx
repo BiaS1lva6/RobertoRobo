@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import Header from "@/components/Header";
-import StatsCard from "@/components/StatsCard";
+import Header from "../components/Header";
+import StatsCard from "../components/StatsCard";
 
 export default function AdminChildren() {
   const router = useNavigate();

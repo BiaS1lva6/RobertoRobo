@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../contexts/AuthContext";
 
 export default function UserDashboard() {
-  const router = useNavigate()
-  const { logout, user } = useAuth()
+  const navigate = useNavigate(); // Renomeado para "navigate" para maior clareza
+  const { logout, user } = useAuth();
 
   return (
     <div className="purple-gradient">
@@ -13,17 +13,17 @@ export default function UserDashboard() {
         </div>
 
         <div className="d-flex justify-content-center gap-4 mt-5">
-          <button className="icon-button" onClick={() => router.push("/games")}>
+          <button className="icon-button" onClick={() => navigate("/games")}>
             <i className="bi bi-play-circle-fill"></i>
             <span>Minigames</span>
           </button>
 
-          <button className="icon-button" onClick={() => router.push("/user/performance")}>
+          <button className="icon-button" onClick={() => navigate("/user/performance")}>
             <i className="bi bi-controller"></i>
             <span>Desempenho</span>
           </button>
 
-          <button className="icon-button" onClick={() => router.push("/user/profile")}>
+          <button className="icon-button" onClick={() => navigate("/user/profile")}>
             <i className="bi bi-person-circle"></i>
             <span>Perfil</span>
           </button>
@@ -48,5 +48,5 @@ export default function UserDashboard() {
         </button>
       </div>
     </div>
-  )
+  );
 }

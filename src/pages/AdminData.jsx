@@ -49,22 +49,22 @@ export default function AdminData() {
   return (
     <div className="purple-gradient scrollable" style={{ minHeight: "100vh", paddingBottom: "2rem" }}>
       <button
-        onClick={() => router.back()}
-        style={{
-          position: "absolute",
-          top: "20px",
-          right: "20px",
-          background: "white",
-          border: "none",
-          borderRadius: "10px",
-          padding: "0.5rem 1rem",
-          color: "var(--text-purple)",
-          fontWeight: "600",
-          cursor: "pointer",
-        }}
-      >
-        Voltar
-      </button>
+  onClick={() => router(-1)}
+  style={{
+    position: "absolute",
+    top: "20px",
+    right: "20px",
+    background: "white",
+    border: "none",
+    borderRadius: "10px",
+    padding: "0.5rem 1rem",
+    color: "var(--text-purple)",
+    fontWeight: "600",
+    cursor: "pointer",
+  }}
+>
+  Voltar
+</button>
 
       <div className="container py-4">
         <div className="custom-table p-4">

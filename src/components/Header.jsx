@@ -1,15 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 export default function Header({ title, showBackButton = false, showLogoutButton = false }) {
-  const router = useNavigate()
+  const router = useNavigate();
 
   const handleBack = () => {
-    router.back()
-  }
+    router(-1); // Navega para a página anterior
+  };
 
   const handleLogout = () => {
-    router.push("/login")
-  }
+    router("/login");
+  };
 
   return (
     <div className="d-flex justify-content-between align-items-center p-3" style={{ color: "white" }}>
@@ -29,5 +29,5 @@ export default function Header({ title, showBackButton = false, showLogoutButton
         <div></div>
       )}
     </div>
-  )
+  );
 }

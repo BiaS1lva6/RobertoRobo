@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import Header from "@/components/Header";
+import Header from "../components/Header";
 
 export default function GameComplete() {
   const router = useNavigate();

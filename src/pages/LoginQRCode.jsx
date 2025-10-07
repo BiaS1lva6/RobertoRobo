@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
-import YellowCard from "@/components/YellowCard";
-import QRCodeDisplay from "@/components/QRCodeDisplay";
+import YellowCard from "../components/YellowCard";
+import QRCodeDisplay from "../components/QRCodeDisplay";
 
 export default function LoginQRCode() {
   const router = useNavigate();
