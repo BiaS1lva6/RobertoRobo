@@ -1,105 +1,104 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import Header from "../components/Header";
-import StatsCard from "../components/StatsCard";
 import Footer from "../components/Footer";
 
 export default function AdminChildren() {
-  const router = useNavigate();
-
+  const navigate = useNavigate();
   const [children] = useState([
-    { id: 1, name: "João Silva", age: 6, level: 1, progress: 45 },
-    { id: 2, name: "Maria Santos", age: 7, level: 2, progress: 78 },
-    { id: 3, name: "Pedro Costa", age: 5, level: 1, progress: 32 },
-    { id: 4, name: "Ana Oliveira", age: 8, level: 2, progress: 89 },
+    { id: 1, name: "João Silva", age: 7, email: "joao@robo.com", jogos: 45, lastAccess: "Hoje, 14:30" },
+    { id: 2, name: "Maria Santos", age: 8, email: "maria@robo.com", jogos: 62, lastAccess: "Ontem, 16:15" },
+    { id: 3, name: "Pedro Costa", age: 6, email: "pedro@robo.com", jogos: 38, lastAccess: "Hoje, 10:20" },
+    { id: 4, name: "Ana Oliveira", age: 7, email: "ana@robo.com", jogos: 51, lastAccess: "Hoje, 15:45" },
+    { id: 5, name: "Lucas Ferreira", age: 9, email: "lucas@robo.com", jogos: 73, lastAccess: "Ontem, 11:30" },
   ]);
 
-  const totalChildren = children.length;
-  const avgProgress = Math.round(
-    children.reduce((acc, child) => acc + child.progress, 0) / children.length
-  );
-
   return (
-    <div
-      className="purple-gradient scrollable"
-      style={{ minHeight: "100vh", paddingBottom: "2rem" }}
-    >
-      <Header title="Crianças Cadastradas" showBackButton={true} />
+    <div className="purple-gradient p-4" style={{ minHeight: "100vh", overflowY: "auto" }}>
+      <button
+        onClick={() => navigate(-1)}
+        className="btn btn-light position-absolute"
+        style={{
+          top: "20px",
+          right: "20px",
+        }}
+      >
+        Voltar
+      </button>
 
-      <div className="container py-4">
-        <div className="d-flex gap-3 mb-4 flex-wrap justify-content-center">
-          <StatsCard value={totalChildren} label="Total" />
-          <StatsCard value="563" label="Sessões" />
-          <StatsCard value="54" label="Atividades" />
-          <StatsCard value={`${avgProgress}%`} label="Progresso Médio" />
+      <div
+  className="card bg-warning text-dark mx-auto"
+  style={{
+    maxWidth: "1400px", // Aumenta a largura máxima
+    padding: "2rem", // Aumenta o espaçamento interno
+    minHeight: "650px", // Define uma altura mínima
+  }}
+>
+        <h1 className="text-center fw-bold mb-4">Crianças Cadastradas</h1>
+
+        <div className="row text-center mb-4">
+          <div className="col">
+            <div className="bg-light p-3 rounded">
+              <h4 className="fw-bold">5</h4>
+              <p>Total de Crianças</p>
+            </div>
+          </div>
+          <div className="col">
+            <div className="bg-light p-3 rounded">
+              <h4 className="fw-bold">269</h4>
+              <p>Jogos Realizados</p>
+            </div>
+          </div>
+          <div className="col">
+            <div className="bg-light p-3 rounded">
+              <h4 className="fw-bold">54</h4>
+              <p>Média por Criança</p>
+            </div>
+          </div>
         </div>
 
-        <div className="custom-table p-4">
-          <div className="table-responsive">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Idade</th>
-                  <th>Nível</th>
-                  <th>Progresso</th>
-                  <th>Ações</th>
+        <div className="table-responsive">
+          <table className="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Email</th>
+                <th>Jogos</th>
+                <th>Último Acesso</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {children.map((child) => (
+                <tr key={child.id}>
+                  <td>{child.name}</td>
+                  <td>{child.age} anos</td>
+                  <td>
+                    <a href={`mailto:${child.email}`}>{child.email}</a>
+                  </td>
+                  <td>{child.jogos}</td>
+                  <td>{child.lastAccess}</td>
+                  <td>
+                    <button
+                      className="btn btn-warning btn-sm me-2"
+                      onClick={() => alert("Editar criança")}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => alert("Excluir criança")}
+                    >
+                      Excluir
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {children.map((child) => (
-                  <tr key={child.id}>
-                    <td className="fw-bold">{child.name}</td>
-                    <td>{child.age} anos</td>
-                    <td>
-                      <span className="badge bg-primary">
-                        Nível {child.level}
-                      </span>
-                    </td>
-                    <td>
-                      <div className="progress" style={{ height: "20px" }}>
-                        <div
-                          className="progress-bar"
-                          role="progressbar"
-                          style={{
-                            width: `${child.progress}%`,
-                            backgroundColor: "#8B3FD9",
-                          }}
-                          aria-valuenow={child.progress}
-                          aria-valuemin={0}
-                          aria-valuemax={100}
-                        >
-                          {child.progress}%
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-sm btn-purple"
-                        onClick={() =>
-                          router.push(`/user/performance?childId=${child.id}`)
-                        }
-                      >
-                        Ver Detalhes
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="text-center mt-4">
-            <button
-              className="btn btn-yellow"
-              onClick={() => alert("Adicionar nova criança")}
-            >
-              + Adicionar Criança
-            </button>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
