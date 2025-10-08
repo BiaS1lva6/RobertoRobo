@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import Footer from "../components/Footer";
+
 
 export default function AdminChildren() {
   const router = useNavigate()
@@ -161,11 +163,8 @@ export default function AdminChildren() {
             </tbody>
           </table>
         </div>
-
-        <div className="text-center mt-4" style={{ fontSize: "0.85rem", color: "#666" }}>
-          © Feito por Beatriz e Luiza - Curso de Desenvolvimento de Sistemas
-        </div>
       </div>
+      <Footer/>
     </div>
   )
 }

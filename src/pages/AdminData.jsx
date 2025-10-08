@@ -67,7 +67,7 @@ export default function AdminData() {
   Voltar
 </button>
 
-      <div className="container py-4">
+      <div className="container py-3">
         <div className="custom-table p-4">
           <div className="d-flex align-items-center gap-3 mb-4">
             <div
