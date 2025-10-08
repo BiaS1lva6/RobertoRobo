@@ -1,93 +1,157 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import Footer from "../components/Footer";
 
 export default function AdminChildren() {
-  const navigate = useNavigate();
-  const [children] = useState([
-    { id: 1, name: "João Silva", age: 7, email: "joao@robo.com", jogos: 45, lastAccess: "Hoje, 14:30" },
-    { id: 2, name: "Maria Santos", age: 8, email: "maria@robo.com", jogos: 62, lastAccess: "Ontem, 16:15" },
-    { id: 3, name: "Pedro Costa", age: 6, email: "pedro@robo.com", jogos: 38, lastAccess: "Hoje, 10:20" },
-    { id: 4, name: "Ana Oliveira", age: 7, email: "ana@robo.com", jogos: 51, lastAccess: "Hoje, 15:45" },
-    { id: 5, name: "Lucas Ferreira", age: 9, email: "lucas@robo.com", jogos: 73, lastAccess: "Ontem, 11:30" },
-  ]);
+  const router = useNavigate()
+
+  const [children, setChildren] = useState([
+    { id: 1, name: "João Silva", age: 7, email: "joao@robo.com", games: 48, lastAccess: "Hoje, 10:30" },
+    { id: 2, name: "Maria Santos", age: 8, email: "maria@robo.com", games: 65, lastAccess: "Ontem, 14:25" },
+    { id: 3, name: "Ana Oliveira", age: 7, email: "ana@robo.com", games: 31, lastAccess: "Hoje, 16:15" },
+    { id: 4, name: "Lucas Ferreira", age: 9, email: "lucas@robo.com", games: 73, lastAccess: "Ontem, 11:48" },
+  ])
+
+  const totalChildren = children.length
+  const totalGames = children.reduce((acc, child) => acc + child.games, 0)
+  const avgGames = Math.round(totalGames / children.length)
+
+  const handleDelete = (id) => {
+    if (confirm("Tem certeza que deseja excluir esta criança?")) {
+      setChildren(children.filter((child) => child.id !== id));
+    }
+  };
 
   return (
-    <div className="purple-gradient p-4" style={{ minHeight: "100vh", overflowY: "auto" }}>
+    <div className="purple-gradient" style={{ minHeight: "100vh", padding: "2rem" }}>
+      <div className="d-flex justify-content-end mb-3">
       <button
-        onClick={() => navigate(-1)}
-        className="btn btn-light position-absolute"
-        style={{
-          top: "20px",
-          right: "20px",
-        }}
-      >
-        Voltar
-      </button>
-
-      <div
-  className="card bg-warning text-dark mx-auto"
+  onClick={() => router(-1)}
   style={{
-    maxWidth: "1400px", // Aumenta a largura máxima
-    padding: "2rem", // Aumenta o espaçamento interno
-    minHeight: "650px", // Define uma altura mínima
+    position: "absolute",
+    top: "20px",
+    right: "20px",
+    background: "white",
+    border: "none",
+    borderRadius: "10px",
+    padding: "0.5rem 1rem",
+    color: "var(--text-purple)",
+    fontWeight: "600",
+    cursor: "pointer",
   }}
 >
-        <h1 className="text-center fw-bold mb-4">Crianças Cadastradas</h1>
+  Voltar
+</button>
+      </div>
 
-        <div className="row text-center mb-4">
-          <div className="col">
-            <div className="bg-light p-3 rounded">
-              <h4 className="fw-bold">5</h4>
-              <p>Total de Crianças</p>
-            </div>
+      <div
+      className="custom-table"
+        style={{
+          borderRadius: "30px",
+          padding: "2.5rem",
+          maxWidth: "900px",
+          margin: "0 auto",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+        }}
+      >
+        <h2 className="fw-bold mb-4" style={{ color: "#000", fontSize: "2rem" }}>
+          Crianças Cadastradas
+        </h2>
+
+        <div className="d-flex gap-3 mb-4 flex-wrap">
+          <div
+            style={{
+              background: "#7C3AED",
+              borderRadius: "15px",
+              padding: "1rem 2rem",
+              color: "white",
+              textAlign: "center",
+              minWidth: "150px",
+            }}
+          >
+            <div style={{ fontSize: "2rem", fontWeight: "bold" }}>{totalChildren}</div>
+            <div style={{ fontSize: "0.9rem" }}>Total de Crianças</div>
           </div>
-          <div className="col">
-            <div className="bg-light p-3 rounded">
-              <h4 className="fw-bold">269</h4>
-              <p>Jogos Realizados</p>
-            </div>
+          <div
+            style={{
+              background: "#7C3AED",
+              borderRadius: "15px",
+              padding: "1rem 2rem",
+              color: "white",
+              textAlign: "center",
+              minWidth: "150px",
+            }}
+          >
+            <div style={{ fontSize: "2rem", fontWeight: "bold" }}>{totalGames}</div>
+            <div style={{ fontSize: "0.9rem" }}>Jogos Realizados</div>
           </div>
-          <div className="col">
-            <div className="bg-light p-3 rounded">
-              <h4 className="fw-bold">54</h4>
-              <p>Média por Criança</p>
-            </div>
+          <div
+            style={{
+              background: "#7C3AED",
+              borderRadius: "15px",
+              padding: "1rem 2rem",
+              color: "white",
+              textAlign: "center",
+              minWidth: "150px",
+            }}
+          >
+            <div style={{ fontSize: "2rem", fontWeight: "bold" }}>{avgGames}</div>
+            <div style={{ fontSize: "0.9rem" }}>Média por Criança</div>
           </div>
         </div>
 
-        <div className="table-responsive">
-          <table className="table table-striped table-hover">
-            <thead>
+        <div className="mb-3 d-flex justify-content-between align-items-center">
+          <h4 className="fw-bold mb-0" style={{ color: "#000" }}>
+            Crianças Cadastradas
+          </h4>
+          <a href="#" style={{ color: "#7C3AED", textDecoration: "none", fontWeight: "600" }}>
+            Filtrar
+          </a>
+        </div>
+
+        <div style={{ background: "white", borderRadius: "15px", overflow: "hidden" }}>
+          <table className="table table-hover mb-0">
+            <thead style={{ background: "#7C3AED", color: "white" }}>
               <tr>
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Email</th>
-                <th>Jogos</th>
-                <th>Último Acesso</th>
-                <th>Ações</th>
+                <th style={{ padding: "1rem", border: "none" }}>Nome</th>
+                <th style={{ padding: "1rem", border: "none" }}>Idade</th>
+                <th style={{ padding: "1rem", border: "none" }}>Email</th>
+                <th style={{ padding: "1rem", border: "none" }}>Jogos</th>
+                <th style={{ padding: "1rem", border: "none" }}>Último Acesso</th>
+                <th style={{ padding: "1rem", border: "none" }}></th>
               </tr>
             </thead>
             <tbody>
               {children.map((child) => (
                 <tr key={child.id}>
-                  <td>{child.name}</td>
-                  <td>{child.age} anos</td>
-                  <td>
-                    <a href={`mailto:${child.email}`}>{child.email}</a>
-                  </td>
-                  <td>{child.jogos}</td>
-                  <td>{child.lastAccess}</td>
-                  <td>
+                  <td style={{ padding: "1rem", fontWeight: "600" }}>{child.name}</td>
+                  <td style={{ padding: "1rem" }}>{child.age} anos</td>
+                  <td style={{ padding: "1rem" }}>{child.email}</td>
+                  <td style={{ padding: "1rem", fontWeight: "600", color: "#7C3AED" }}>{child.games}</td>
+                  <td style={{ padding: "1rem" }}>{child.lastAccess}</td>
+                  <td style={{ padding: "1rem" }}>
                     <button
-                      className="btn btn-warning btn-sm me-2"
-                      onClick={() => alert("Editar criança")}
+                      className="btn btn-sm me-2"
+                      style={{
+                        background: "#7C3AED",
+                        color: "white",
+                        borderRadius: "8px",
+                        padding: "0.4rem 1rem",
+                        border: "none",
+                      }}
+                      onClick={() => alert(`Editar ${child.name}`)}
                     >
                       Editar
                     </button>
                     <button
-                      className="btn btn-danger btn-sm"
-                      onClick={() => alert("Excluir criança")}
+                      className="btn btn-sm"
+                      style={{
+                        background: "#7C3AED",
+                        color: "white",
+                        borderRadius: "8px",
+                        padding: "0.4rem 1rem",
+                        border: "none",
+                      }}
+                      onClick={() => handleDelete(child.id)}
                     >
                       Excluir
                     </button>
@@ -97,8 +161,11 @@ export default function AdminChildren() {
             </tbody>
           </table>
         </div>
+
+        <div className="text-center mt-4" style={{ fontSize: "0.85rem", color: "#666" }}>
+          © Feito por Beatriz e Luiza - Curso de Desenvolvimento de Sistemas
+        </div>
       </div>
-      <Footer />
     </div>
-  );
+  )
 }

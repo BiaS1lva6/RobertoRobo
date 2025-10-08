@@ -14,7 +14,7 @@ export default function AdminDashboard() {
         </div>
 
         <p style={{ color: "white", fontSize: "1.2rem", marginBottom: "3rem" }}>
-          Bem-vindo, {user?.nome}!
+        Bem-vindo, {user?.nome || "Tutor"}!
         </p>
 
         <div className="d-flex justify-content-center gap-4">
