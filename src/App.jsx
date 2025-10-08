@@ -4,7 +4,9 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./index.css";
 import { AuthProvider } from "./contexts/AuthContext";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import RegisterTutor from "./pages/RegisterTutor";
+import RegisterTutorQRCode from "./pages/RegisterTutorQRCode";
 import UserDashboard from "./pages/UserDashboard";
 import GamesMenu from "./pages/GamesMenu";
 import Performance from "./pages/Performance";
@@ -27,7 +29,9 @@ function App() {
 
           {/* Páginas públicas */}
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<RegisterTutor />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/register-tutor" element={<RegisterTutor />} />
+          <Route path="/register-tutor-qrcode" element={<RegisterTutorQRCode />} />
 
           {/* Páginas privadas */}
           <Route path="/dashboard" element={<UserDashboard />} />

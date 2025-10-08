@@ -1,28 +1,29 @@
-import { useState } from "react"
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
 export default function Register() {
-  const router = useNavigate()
-  const [showPassword, setShowPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     user: "",
     email: "",
     senha: "",
     confirmarSenha: "",
-  })
+  });
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (formData.senha !== formData.confirmarSenha) {
-      alert("As senhas não coincidem!")
-      return
+    // Validação dos campos obrigatórios
+    if (!formData.user || !formData.email || !formData.senha) {
+      alert("Por favor, preencha todos os campos antes de continuar.");
+      return;
     }
 
-    // After successful registration, go to tutor registration
-    router.push("/register-tutor")
-  }
+    // Após validação bem-sucedida, redireciona para o registro do tutor
+    navigate("/register-tutor"); // Substitua router.push por navigate
+  };
 
   return (
     <div className="purple-gradient">
@@ -30,37 +31,70 @@ export default function Register() {
         <div className="logo-container">
           <i className="bi bi-robot"></i>
         </div>
-        <h2 style={{ fontWeight: "700", color: "var(--text-purple)", marginBottom: "1.5rem" }}>Roberto Robô</h2>
+        <h2
+          style={{
+            fontWeight: "700",
+            color: "var(--text-purple)",
+            marginBottom: "1.5rem",
+          }}
+        >
+          Roberto Robô
+        </h2>
 
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: "1rem", textAlign: "left" }}>
-            <label style={{ fontWeight: "600", color: "var(--text-purple)", display: "block", marginBottom: "0.5rem" }}>
+            <label
+              style={{
+                fontWeight: "600",
+                color: "var(--text-purple)",
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
               User
             </label>
             <input
               type="text"
               className="form-input"
               value={formData.user}
-              onChange={(e) => setFormData({ ...formData, user: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, user: e.target.value })
+              }
               required
             />
           </div>
 
           <div style={{ marginBottom: "1rem", textAlign: "left" }}>
-            <label style={{ fontWeight: "600", color: "var(--text-purple)", display: "block", marginBottom: "0.5rem" }}>
+            <label
+              style={{
+                fontWeight: "600",
+                color: "var(--text-purple)",
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
               Email
             </label>
             <input
               type="email"
               className="form-input"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               required
             />
           </div>
 
           <div style={{ marginBottom: "1rem", textAlign: "left" }}>
-            <label style={{ fontWeight: "600", color: "var(--text-purple)", display: "block", marginBottom: "0.5rem" }}>
+            <label
+              style={{
+                fontWeight: "600",
+                color: "var(--text-purple)",
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
               Senha
             </label>
             <div style={{ position: "relative" }}>
@@ -68,7 +102,9 @@ export default function Register() {
                 type={showPassword ? "text" : "password"}
                 className="form-input"
                 value={formData.senha}
-                onChange={(e) => setFormData({ ...formData, senha: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, senha: e.target.value })
+                }
                 required
               />
               <i
@@ -87,7 +123,14 @@ export default function Register() {
           </div>
 
           <div style={{ marginBottom: "1.5rem", textAlign: "left" }}>
-            <label style={{ fontWeight: "600", color: "var(--text-purple)", display: "block", marginBottom: "0.5rem" }}>
+            <label
+              style={{
+                fontWeight: "600",
+                color: "var(--text-purple)",
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
               Confirmar Senha
             </label>
             <div style={{ position: "relative" }}>
@@ -95,7 +138,12 @@ export default function Register() {
                 type={showConfirmPassword ? "text" : "password"}
                 className="form-input"
                 value={formData.confirmarSenha}
-                onChange={(e) => setFormData({ ...formData, confirmarSenha: e.target.value })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    confirmarSenha: e.target.value,
+                  })
+                }
                 required
               />
               <i
@@ -136,5 +184,5 @@ export default function Register() {
         </div>
       </div>
     </div>
-  )
+  );
 }

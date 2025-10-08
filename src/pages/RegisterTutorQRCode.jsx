@@ -4,11 +4,11 @@ import QRCodeDisplay from "../components/QRCodeDisplay"
 import Footer from "../components/Footer";
 
 export default function RegisterTutorQRCode() {
-  const router = useNavigate()
+  const navigate = useNavigate(); 
 
   const handleGenerateQRCode = () => {
     alert("QR Code do tutor gerado com sucesso!")
-    router.push("/admin/dashboard")
+    navigate("/admin/dashboard")
   }
 
   return (
@@ -40,7 +40,7 @@ export default function RegisterTutorQRCode() {
 
         <div className="text-center">
           <button
-            onClick={() => router.push("/register-tutor")}
+            onClick={() => navigate("/register-tutor")}
             className="btn btn-link"
             style={{ color: "var(--text-dark)", textDecoration: "none" }}
           >
