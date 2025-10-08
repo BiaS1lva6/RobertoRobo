@@ -17,17 +17,17 @@ const questions = [
 
 export default function ShapesGame() {
   const router = useNavigate();
-  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const [selectedOption, setSelectedOption] = useState(null); // Removida a anotação de tipo
   const [showResult, setShowResult] = useState(false);
 
-  const handleOptionClick = (index: number) => {
+  const handleOptionClick = (index) => {
     if (showResult) return; // impede cliques duplos
     setSelectedOption(index);
     setShowResult(true);
 
     if (questions[0].options[index].isCorrect) {
       setTimeout(() => {
-        router.push("/games/complete");
+        router("/games/complete");
       }, 1500);
     } else {
       // reseta após 1.5s se errar
@@ -94,7 +94,7 @@ export default function ShapesGame() {
           </div>
         )}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

@@ -13,6 +13,9 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminChildren from "./pages/AdminChildren";
 import AdminReports from "./pages/AdminReports";
 import AdminData from "./pages/AdminData";
+import SequenceGame from "./pages/SequenceGame"; 
+import ShapesGame from "./pages/ShapesGame";
+import GameComplete from "./pages/GameComplete"; 
 
 function App() {
   return (
@@ -32,6 +35,11 @@ function App() {
           <Route path="/user/performance" element={<Performance />} />
           <Route path="/user/profile" element={<Profile />} />
 
+          {/* Jogos */}
+          <Route path="/sequence-game" element={<SequenceGame />} /> 
+          <Route path="/shapes-game" element={<ShapesGame />} />
+          <Route path="/games/complete" element={<GameComplete />} /> 
+          
           {/* Páginas administrativas */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/children" element={<AdminChildren />} />

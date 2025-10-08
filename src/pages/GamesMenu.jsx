@@ -1,27 +1,28 @@
 import { useNavigate } from "react-router";
 import Footer from "../components/Footer";
+
 export default function GamesMenu() {
-  const router = useNavigate(); // Hook para navegação
+  const navigate = useNavigate(); // Certifique-se de usar o hook corretamente
 
   return (
     <div className="purple-gradient" style={{ minHeight: "100vh", padding: "2rem", position: "relative" }}>
       <button
-  onClick={() => router(-1)}
-  style={{
-    position: "absolute",
-    top: "20px",
-    right: "20px",
-    background: "white",
-    border: "none",
-    borderRadius: "10px",
-    padding: "0.5rem 1rem",
-    color: "var(--text-purple)",
-    fontWeight: "600",
-    cursor: "pointer",
-  }}
->
-  Voltar
-</button>
+        onClick={() => navigate(-1)}
+        style={{
+          position: "absolute",
+          top: "20px",
+          right: "20px",
+          background: "white",
+          border: "none",
+          borderRadius: "10px",
+          padding: "0.5rem 1rem",
+          color: "var(--text-purple)",
+          fontWeight: "600",
+          cursor: "pointer",
+        }}
+      >
+        Voltar
+      </button>
 
       <div className="container text-center">
         <div
@@ -44,7 +45,7 @@ export default function GamesMenu() {
               WebkitTextFillColor: "transparent",
             }}
           >
-            As aventuras de Bolim
+            Menu de Jogos
           </h1>
         </div>
 
@@ -79,7 +80,7 @@ export default function GamesMenu() {
               Identifique os padrões e complete a sequência correta de formas coloridas
             </p>
             <button
-              onClick={() => router.push("/sequence-game")}
+              onClick={() => navigate("/sequence-game")}
               style={{
                 background: "#7C3AED",
                 color: "white",
@@ -96,7 +97,7 @@ export default function GamesMenu() {
             </button>
           </div>
 
-          {/* Jogo de Formas */}
+          {/* Jogo das Formas */}
           <div
             style={{
               background: "linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%)",
@@ -120,13 +121,13 @@ export default function GamesMenu() {
               <div style={{ fontSize: "5rem" }}>🔷</div>
             </div>
             <h3 style={{ color: "#1F2937", fontWeight: "700", fontSize: "1.5rem", marginBottom: "1rem" }}>
-              Jogo de Formas
+              Jogo das Formas
             </h3>
             <p style={{ color: "#1F2937", fontSize: "0.95rem", marginBottom: "1.5rem", lineHeight: "1.5" }}>
               Encontre a forma certa que se encaixa no espaço vazio da figura
             </p>
             <button
-              onClick={() => router.push("/shapes-game")}
+              onClick={() => navigate("/shapes-game")}
               style={{
                 background: "#7C3AED",
                 color: "white",
@@ -144,7 +145,7 @@ export default function GamesMenu() {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
-  )
+  );
 }
