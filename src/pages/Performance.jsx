@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import Footer from "../components/Footer";
 
 export default function Performance() {
-  const navigate = useNavigate();
+  const router = useNavigate();
   const { user } = useAuth();
 
   const [performance] = useState({
@@ -26,16 +26,16 @@ export default function Performance() {
       style={{ minHeight: "100vh", padding: "2rem" }}
     >
       <button
-  onClick={() => navigate(-1)} // Volta para a página anterior
+  onClick={() => router(-1)}
   style={{
     position: "absolute",
     top: "20px",
-    left: "20px",
+    right: "20px",
     background: "white",
     border: "none",
     borderRadius: "10px",
     padding: "0.5rem 1rem",
-    color: "#7C3AED",
+    color: "var(--text-purple)",
     fontWeight: "600",
     cursor: "pointer",
   }}

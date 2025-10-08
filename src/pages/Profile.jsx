@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import Footer from "../components/Footer";
 
 export default function Profile() {
-  const navigate = useNavigate(); // Hook para navegação
+  const router = useNavigate(); // Hook para navegação
   const { user } = useAuth();
 
   const [profile] = useState({
@@ -32,7 +32,7 @@ export default function Profile() {
   return (
     <div className="purple-gradient" style={{ minHeight: "100vh", padding: "2rem" }}>
       <button
-  onClick={() => navigate(-1)} // Volta para a página anterior
+  onClick={() => router(-1)} // Volta para a página anterior
   style={{
     position: "absolute",
     top: "20px",

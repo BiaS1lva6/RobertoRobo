@@ -20,7 +20,6 @@ export default function Login() {
       await login(formData.email, formData.senha);
     } catch (err) {
       setError(err.message);
-      console.error("[v0] Erro no login:", err);
     }
   };
 
