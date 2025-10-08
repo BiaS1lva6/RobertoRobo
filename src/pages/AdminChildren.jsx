@@ -111,7 +111,7 @@ export default function AdminChildren() {
         <div style={{ background: "white", borderRadius: "15px", overflow: "hidden" }}>
           <table className="table table-hover mb-0">
             <thead style={{ background: "#7C3AED", color: "white" }}>
-              <tr>
+              <tr >
                 <th style={{ padding: "1rem", border: "none" }}>Nome</th>
                 <th style={{ padding: "1rem", border: "none" }}>Idade</th>
                 <th style={{ padding: "1rem", border: "none" }}>Email</th>
