@@ -1,48 +1,78 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router";
 
-// Criação do contexto de autenticação
 export const AuthContext = createContext();
 
-// Provedor do contexto de autenticação
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null); // Estado para armazenar o usuário autenticado
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
+  // LOGIN
   const login = async (email, senha) => {
-    try {
-      // Simulação de autenticação
-      if (email === "admin@roberto.com" && senha === "admin123") {
-        setUser({ email, tipo: "admin" });
-        navigate("/admin/dashboard"); // Redireciona para o dashboard administrativo
-      } else if (email === "tutor@roberto.com" && senha === "tutor123") {
-        setUser({ email, tipo: "tutor" });
-        navigate("/admin/dashboard"); // Redireciona para o dashboard do tutor
-      } else if (email === "joao@roberto.com" && senha === "joao123") {
-        setUser({ email, tipo: "usuario" });
-        navigate("/dashboard"); // Redireciona para o dashboard do usuário
-      } else {
-        throw new Error("Credenciais inválidas");
-      }
-    } catch (error) {
-      console.error("Erro no login:", error);
-      throw error; // Repassa o erro para ser tratado no componente
+    const users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+    const tutors = JSON.parse(localStorage.getItem("registeredTutors")) || [];
+
+    const foundUser = users.find((u) => u.email === email && u.senha === senha);
+    const foundTutor = tutors.find(
+      (t) => t.email === email && t.senha === senha
+    );
+
+    if (foundUser) {
+      setUser({ ...foundUser, tipo: "usuario" });
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({ ...foundUser, tipo: "usuario" })
+      );
+      navigate("/dashboard");
+    } else if (foundTutor) {
+      setUser({ ...foundTutor, tipo: "tutor" });
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({ ...foundTutor, tipo: "tutor" })
+      );
+      navigate("/admin/dashboard");
+    } else {
+      throw new Error("Email ou senha incorretos");
     }
   };
 
+  // REGISTRAR USUÁRIO
+  const register = (novoUsuario) => {
+    const users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+    if (users.some((u) => u.email === novoUsuario.email))
+      throw new Error("Este email já está registrado.");
+    users.push({
+      user: novoUsuario.user, // Certifique-se de salvar o campo "user"
+      email: novoUsuario.email,
+      senha: novoUsuario.senha,
+    });
+    localStorage.setItem("registeredUsers", JSON.stringify(users));
+  };
+
+  // REGISTRAR TUTOR
+  const registerTutor = (novoTutor) => {
+    const tutors = JSON.parse(localStorage.getItem("registeredTutors")) || [];
+    if (tutors.some((t) => t.email === novoTutor.email))
+      throw new Error("Este email já está registrado como tutor.");
+    tutors.push(novoTutor);
+    localStorage.setItem("registeredTutors", JSON.stringify(tutors));
+  };
+
   const logout = () => {
-    setUser(null); // Remove o usuário autenticado
-    navigate("/login"); // Redireciona para a página de login
+    setUser(null);
+    localStorage.removeItem("currentUser");
+    navigate("/login");
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, login, register, registerTutor, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
 }
 
-// Hook personalizado para consumir o contexto de autenticação
 export function useAuth() {
   return useContext(AuthContext);
 }

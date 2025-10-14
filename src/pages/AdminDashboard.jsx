@@ -1,10 +1,21 @@
 import { useNavigate } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
+import { useEffect, useState } from "react"; // Adicionei o useEffect e useState
 import Footer from "../components/Footer";
 
 export default function AdminDashboard() {
   const router = useNavigate();
   const { logout, user } = useAuth();
+  const [tutorName, setTutorName] = useState("");
+
+  // Atualiza o nome do tutor com base no usuário logado
+  useEffect(() => {
+    if (user && user.tipo === "tutor") {
+      setTutorName(user.name || "Tutor");
+    } else if (user && user.tipo === "admin") {
+      setTutorName("Administrador");
+    }
+  }, [user]);
 
   return (
     <div className="purple-gradient">
@@ -13,8 +24,8 @@ export default function AdminDashboard() {
           <h1>Painel {user?.tipo === "admin" ? "Administrativo" : "do Tutor"}</h1>
         </div>
 
-        <p style={{ color: "white", fontSize: "1.2rem", marginBottom: "3rem" }}>
-        Bem-vindo, {user?.nome || "Tutor"}!
+        <p style={{ color: "var(--text-purple)", fontSize: "1.2rem", marginBottom: "3rem" }}>
+          Bem-vindo, {tutorName}!
         </p>
 
         <div className="d-flex justify-content-center gap-4">
@@ -52,7 +63,7 @@ export default function AdminDashboard() {
           Sair
         </button>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

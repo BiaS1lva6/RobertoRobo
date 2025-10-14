@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
+import VirtualKeyboard from "../components/VirtualKeyboard";
 
 export default function Register() {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { register } = useAuth();
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const [activeField, setActiveField] = useState(null);
   const [formData, setFormData] = useState({
     user: "",
     email: "",
@@ -13,16 +16,37 @@ export default function Register() {
   });
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
 
-    // Validação dos campos obrigatórios
-    if (!formData.user || !formData.email || !formData.senha) {
+    if (!formData.user || !formData.email || !formData.senha || !formData.confirmarSenha) {
       alert("Por favor, preencha todos os campos antes de continuar.");
       return;
     }
 
-    // Após validação bem-sucedida, redireciona para o registro do tutor
-    navigate("/register-tutor"); // Substitua router.push por navigate
+    if (formData.senha !== formData.confirmarSenha) {
+      alert("As senhas não coincidem. Por favor, verifique e tente novamente.");
+      return;
+    }
+
+    try {
+      // Registrar usuário no localStorage usando o método do AuthContext
+      register({
+        user: formData.user,
+        email: formData.email,
+        senha: formData.senha,
+      });
+
+      alert("Cadastro realizado com sucesso!");
+      navigate("/register-tutor");
+    } catch (error) {
+      console.error("Erro ao registrar usuário:", error);
+      alert(error.message || "Ocorreu um erro ao tentar registrar o usuário.");
+    }
+  };
+
+  const handleInputFocus = (field) => {
+    setActiveField(field);
+    setKeyboardVisible(true);
   };
 
   return (
@@ -38,7 +62,7 @@ export default function Register() {
             marginBottom: "1.5rem",
           }}
         >
-          Roberto Robô
+          Cadastro
         </h2>
 
         <form onSubmit={handleSubmit}>
@@ -51,16 +75,16 @@ export default function Register() {
                 marginBottom: "0.5rem",
               }}
             >
-              User
+              Usuário
             </label>
             <input
               type="text"
               className="form-input"
               value={formData.user}
-              onChange={(e) =>
-                setFormData({ ...formData, user: e.target.value })
-              }
+              onFocus={() => handleInputFocus("user")}
+              onChange={(e) => setFormData({ ...formData, user: e.target.value })}
               required
+              placeholder="Digite seu usuário"
             />
           </div>
 
@@ -79,10 +103,10 @@ export default function Register() {
               type="email"
               className="form-input"
               value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
+              onFocus={() => handleInputFocus("email")}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               required
+              placeholder="Digite seu email"
             />
           </div>
 
@@ -97,29 +121,15 @@ export default function Register() {
             >
               Senha
             </label>
-            <div style={{ position: "relative" }}>
-              <input
-                type={showPassword ? "text" : "password"}
-                className="form-input"
-                value={formData.senha}
-                onChange={(e) =>
-                  setFormData({ ...formData, senha: e.target.value })
-                }
-                required
-              />
-              <i
-                className={`bi bi-eye${showPassword ? "-slash" : ""}`}
-                onClick={() => setShowPassword(!showPassword)}
-                style={{
-                  position: "absolute",
-                  right: "1rem",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  cursor: "pointer",
-                  color: "var(--text-purple)",
-                }}
-              ></i>
-            </div>
+            <input
+              type="password"
+              className="form-input"
+              value={formData.senha}
+              onFocus={() => handleInputFocus("senha")}
+              onChange={(e) => setFormData({ ...formData, senha: e.target.value })}
+              required
+              placeholder="Digite sua senha"
+            />
           </div>
 
           <div style={{ marginBottom: "1.5rem", textAlign: "left" }}>
@@ -133,55 +143,43 @@ export default function Register() {
             >
               Confirmar Senha
             </label>
-            <div style={{ position: "relative" }}>
-              <input
-                type={showConfirmPassword ? "text" : "password"}
-                className="form-input"
-                value={formData.confirmarSenha}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    confirmarSenha: e.target.value,
-                  })
-                }
-                required
-              />
-              <i
-                className={`bi bi-eye${showConfirmPassword ? "-slash" : ""}`}
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                style={{
-                  position: "absolute",
-                  right: "1rem",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  cursor: "pointer",
-                  color: "var(--text-purple)",
-                }}
-              ></i>
-            </div>
+            <input
+              type="password"
+              className="form-input"
+              value={formData.confirmarSenha}
+              onFocus={() => handleInputFocus("confirmarSenha")}
+              onChange={(e) =>
+                setFormData({ ...formData, confirmarSenha: e.target.value })
+              }
+              required
+              placeholder="Confirme sua senha"
+            />
           </div>
 
-          <button type="submit" className="btn-purple w-100">
+          <button type="submit" className="btn btn-purple w-100">
             Cadastrar
           </button>
         </form>
 
-        <div style={{ marginTop: "1.5rem" }}>
-          <p style={{ color: "var(--text-purple)", fontSize: "0.9rem" }}>
-            Já tem uma conta?{" "}
-            <a
-              href="/login"
-              style={{
-                color: "var(--text-purple)",
-                fontWeight: "600",
-                textDecoration: "underline",
-                cursor: "pointer",
-              }}
-            >
-              Faça login aqui
-            </a>
-          </p>
-        </div>
+        <VirtualKeyboard
+          visible={keyboardVisible}
+          activeField={activeField}
+          formData={formData}
+          setFormData={setFormData}
+          onClose={() => setKeyboardVisible(false)}
+          onNextField={(currentField) => {
+            const fields = ["user", "email", "senha", "confirmarSenha"];
+            const currentIndex = fields.indexOf(currentField);
+            const nextField = fields[currentIndex + 1];
+
+            if (nextField) {
+              setActiveField(nextField);
+            } else {
+              setKeyboardVisible(false);
+              handleSubmit();
+            }
+          }}
+        />
       </div>
     </div>
   );

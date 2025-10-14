@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import Footer from "../components/Footer";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function RegisterTutor() {
-  const navigate = useNavigate(); // Hook para redirecionamento
+  const navigate = useNavigate();
+  const { registerTutor } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,70 +24,149 @@ export default function RegisterTutor() {
       return;
     }
 
-    // Redireciona para a próxima página
-    navigate("/register-tutor-qrcode");
+    try {
+      // Registrar tutor no localStorage usando o método do AuthContext
+      registerTutor({
+        name: formData.name,
+        email: formData.email,
+        senha: formData.senha,
+        responsavelPor: formData.responsavelPor,
+      });
+
+      alert("Cadastro realizado com sucesso!");
+      navigate("/register-tutor-qrcode");
+    } catch (error) {
+      console.error("Erro ao registrar tutor no AuthContext:", error);
+
+      // Fallback: Salvar diretamente no localStorage
+      const tutors = JSON.parse(localStorage.getItem("registeredTutors")) || [];
+      if (tutors.some((t) => t.email === formData.email)) {
+        alert("Este email já está registrado como tutor.");
+        return;
+      }
+      tutors.push({
+        name: formData.name,
+        email: formData.email,
+        senha: formData.senha,
+        responsavelPor: formData.responsavelPor,
+      });
+      localStorage.setItem("registeredTutors", JSON.stringify(tutors));
+      console.log(tutors);
+
+      alert("Cadastro realizado com sucesso!");
+      navigate("/register-tutor-qrcode");
+    }
   };
 
   return (
     <div className="purple-gradient">
       <div className="yellow-card">
-        <h2 className="text-center" style={{ color: "var(--text-purple)" }}>
+        <div className="logo-container">
+          <i className="bi bi-robot"></i>
+        </div>
+        <h2
+          style={{
+            fontWeight: "700",
+            color: "var(--text-purple)",
+            marginBottom: "1.5rem",
+          }}
+        >
           Cadastro do Tutor
         </h2>
-        <p className="text-center" style={{ color: "var(--text-dark)" }}>
-          Preencha as informações abaixo para continuar.
-        </p>
-        <form>
+
+        <form onSubmit={(e) => e.preventDefault()}>
           <div style={{ marginBottom: "1rem", textAlign: "left" }}>
-            <label style={{ color: "var(--text-purple)", fontWeight: "600" }}>
+            <label
+              style={{
+                fontWeight: "600",
+                color: "var(--text-purple)",
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
               Nome
             </label>
             <input
               type="text"
               className="form-input"
-              placeholder="Digite seu nome"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+              required
+              placeholder="Digite seu nome"
             />
           </div>
-          <div style={{ marginBottom: "1rem" , textAlign: "left"}}>
-            <label style={{ color: "var(--text-purple)", fontWeight: "600" }}>
+
+          <div style={{ marginBottom: "1rem", textAlign: "left" }}>
+            <label
+              style={{
+                fontWeight: "600",
+                color: "var(--text-purple)",
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
               Email
             </label>
             <input
               type="email"
               className="form-input"
-              placeholder="Digite seu email"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+              required
+              placeholder="Digite seu email"
             />
           </div>
-          <div style={{ marginBottom: "1rem", textAlign: "left"}}>
-            <label style={{ fontWeight: "600", color: "var(--text-purple)", display: "block", marginBottom: "0.5rem" }}>
+
+          <div style={{ marginBottom: "1rem", textAlign: "left" }}>
+            <label
+              style={{
+                fontWeight: "600",
+                color: "var(--text-purple)",
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
               Senha
             </label>
             <input
               type="password"
               className="form-input"
-              placeholder="Digite sua senha"
               value={formData.senha}
-              onChange={(e) => setFormData({ ...formData, senha: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, senha: e.target.value })
+              }
+              required
+              placeholder="Digite sua senha"
             />
           </div>
-          <div style={{ marginBottom: "1rem", textAlign: "left" }}>
-            <label style={{ color: "var(--text-purple)", fontWeight: "600" }}>
+
+          <div style={{ marginBottom: "1.5rem", textAlign: "left" }}>
+            <label
+              style={{
+                fontWeight: "600",
+                color: "var(--text-purple)",
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
               Usuário Responsável
             </label>
             <input
               type="text"
               className="form-input"
-              placeholder="Digite o nome do usuário responsável"
               value={formData.responsavelPor}
               onChange={(e) =>
                 setFormData({ ...formData, responsavelPor: e.target.value })
               }
+              required
+              placeholder="Digite o nome do usuário responsável"
             />
           </div>
+
           <button
             type="button"
             className="btn btn-purple w-100"
@@ -96,7 +176,6 @@ export default function RegisterTutor() {
           </button>
         </form>
       </div>
-      <Footer />
     </div>
   );
 }
