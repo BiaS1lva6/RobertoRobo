@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 export default function GameComplete() {
-  const router = useNavigate();
+  const navigate = useNavigate(); // Substituí "router" por "navigate"
 
   return (
     <div
@@ -21,51 +20,26 @@ export default function GameComplete() {
             <div style={{ fontSize: "6rem" }} className="mb-3">
               🎉
             </div>
-            <h1
-              className="fw-bold mb-3"
-              style={{ color: "var(--text-dark)" }}
-            >
-              Parabéns!
-            </h1>
-            <h4 style={{ color: "var(--text-dark)" }}>
-              Você conseguiu passar de todas as fases!
-            </h4>
+            <h1 className="fw-bold mb-3">Jogo Completo!</h1>
+            <p className="mb-0">Você concluiu o jogo com sucesso.</p>
           </div>
 
-          <div className="d-flex gap-3 justify-content-center flex-wrap">
+          <div className="mt-4">
             <button
               className="btn btn-yellow btn-lg px-4"
-              onClick={() => router.push("/games")}
+              onClick={() => navigate("/games")} // Substituí "router.push" por "navigate"
             >
               Jogar Novamente
             </button>
             <button
               className="btn btn-purple btn-lg px-4"
-              onClick={() => router.push("/user/dashboard")}
+              onClick={() => navigate("/user/dashboard")} // Substituí "router.push" por "navigate"
             >
               Voltar ao Início
             </button>
           </div>
-
-          <div className="mt-5">
-            <div
-              className="d-inline-block p-4 rounded-4"
-              style={{
-                backgroundColor: "rgba(255, 255, 255, 0.2)",
-                backdropFilter: "blur(10px)",
-              }}
-            >
-              <h5 className="text-white mb-3">Suas Conquistas:</h5>
-              <div className="d-flex gap-3 justify-content-center">
-                <div style={{ fontSize: "2rem" }}>🏆</div>
-                <div style={{ fontSize: "2rem" }}>⭐</div>
-                <div style={{ fontSize: "2rem" }}>🎯</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-      <Footer/>
     </div>
   );
 }

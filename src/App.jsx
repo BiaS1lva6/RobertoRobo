@@ -64,7 +64,7 @@ function App() {
             {/* Jogos */}
             <Route path="/sequence-game" element={<SequenceGame />} />
             <Route path="/shapes-game" element={<ShapesGame />} />
-            <Route path="/games/complete" element={<GameComplete />} />
+            <Route path="/games-complete" element={<GameComplete />} />
 
             {/* Páginas administrativas */}
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
