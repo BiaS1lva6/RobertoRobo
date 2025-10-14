@@ -1,8 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router";
 import { useState, useEffect } from "react";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "./index.css";
 import { AuthProvider } from "./contexts/AuthContext";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -19,7 +16,8 @@ import AdminData from "./pages/AdminData";
 import SequenceGame from "./pages/SequenceGame";
 import ShapesGame from "./pages/ShapesGame";
 import GameComplete from "./pages/GameComplete";
-import VirtualKeyboard from "./components/VirtualKeyboard"; // Importa o teclado virtual
+import VirtualKeyboard from "./components/VirtualKeyboard";
+import InactivityEyes from "./components/InactivityEyes";
 
 function App() {
   const [showKeyboard, setShowKeyboard] = useState(false);
@@ -42,41 +40,47 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <Routes>
-          {/* Redireciona o caminho raiz para a página de login */}
-          <Route path="/" element={<Navigate to="/login" />} />
+        <div>
+          <InactivityEyes timeout={5000} />
+          <Routes>
+            {/* Redireciona o caminho raiz para a página de login */}
+            <Route path="/" element={<Navigate to="/login" />} />
 
-          {/* Páginas públicas */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/register-tutor" element={<RegisterTutor />} />
-          <Route path="/register-tutor-qrcode" element={<RegisterTutorQRCode />} />
+            {/* Páginas públicas */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/register-tutor" element={<RegisterTutor />} />
+            <Route
+              path="/register-tutor-qrcode"
+              element={<RegisterTutorQRCode />}
+            />
 
-          {/* Páginas privadas */}
-          <Route path="/dashboard" element={<UserDashboard />} />
-          <Route path="/games" element={<GamesMenu />} />
-          <Route path="/user/performance" element={<Performance />} />
-          <Route path="/user/profile" element={<Profile />} />
+            {/* Páginas privadas */}
+            <Route path="/dashboard" element={<UserDashboard />} />
+            <Route path="/games" element={<GamesMenu />} />
+            <Route path="/user/performance" element={<Performance />} />
+            <Route path="/user/profile" element={<Profile />} />
 
-          {/* Jogos */}
-          <Route path="/sequence-game" element={<SequenceGame />} />
-          <Route path="/shapes-game" element={<ShapesGame />} />
-          <Route path="/games/complete" element={<GameComplete />} />
+            {/* Jogos */}
+            <Route path="/sequence-game" element={<SequenceGame />} />
+            <Route path="/shapes-game" element={<ShapesGame />} />
+            <Route path="/games/complete" element={<GameComplete />} />
 
-          {/* Páginas administrativas */}
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/children" element={<AdminChildren />} />
-          <Route path="/admin/reports" element={<AdminReports />} />
-          <Route path="/admin/data" element={<AdminData />} />
-        </Routes>
+            {/* Páginas administrativas */}
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/children" element={<AdminChildren />} />
+            <Route path="/admin/reports" element={<AdminReports />} />
+            <Route path="/admin/data" element={<AdminData />} />
+          </Routes>
 
-        {/* Renderiza o teclado virtual se necessário */}
-        {showKeyboard && (
-          <VirtualKeyboard
-            onChange={handleInputChange}
-            onKeyPress={handleKeyPress}
-          />
-        )}
+          {/* Renderiza o teclado virtual se necessário */}
+          {showKeyboard && (
+            <VirtualKeyboard
+              onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
+            />
+          )}
+        </div>
       </AuthProvider>
     </Router>
   );

@@ -1,98 +1,69 @@
-import { useState } from "react";
 import { useNavigate } from "react-router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-const questions = [
-  {
-    question: "Qual dessas formas é uma estrela?",
-    options: [
-      { shape: "▲", color: "#10B981", isCorrect: false },
-      { shape: "■", color: "#8B3FD9", isCorrect: false },
-      { shape: "★", color: "#F59E0B", isCorrect: true },
-      { shape: "●", color: "#EC4899", isCorrect: false },
-    ],
-  },
-];
-
-export default function ShapesGame() {
-  const router = useNavigate();
-  const [selectedOption, setSelectedOption] = useState(null); // Removida a anotação de tipo
-  const [showResult, setShowResult] = useState(false);
-
-  const handleOptionClick = (index) => {
-    if (showResult) return; // impede cliques duplos
-    setSelectedOption(index);
-    setShowResult(true);
-
-    if (questions[0].options[index].isCorrect) {
-      setTimeout(() => {
-        router("/games/complete");
-      }, 1500);
-    } else {
-      // reseta após 1.5s se errar
-      setTimeout(() => {
-        setShowResult(false);
-        setSelectedOption(null);
-      }, 1500);
-    }
-  };
+export default function GameComplete() {
+  const navigate = useNavigate(); // Substituí o uso de router.push por navigate
 
   return (
-    <div className="purple-gradient min-vh-100 d-flex flex-column">
-      <Header title="Jogo de Formas" showBackButton={true} />
+    <div
+      className="purple-gradient d-flex flex-column"
+      style={{ minHeight: "100vh" }}
+    >
+      <Header title="Parabéns!" showBackButton={false} />
 
-      <div className="container flex-grow-1 d-flex flex-column justify-content-center align-items-center py-4">
-        <div
-          className="text-center p-4 rounded-4 shadow-sm mb-5"
-          style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}
-        >
-          <h3 className="fw-bold mb-2" style={{ color: "var(--text-dark)" }}>
-            {questions[0].question}
-          </h3>
-          <p className="mb-0 text-muted">Toque na forma correta abaixo</p>
-        </div>
-
-        <div className="d-flex gap-4 justify-content-center flex-wrap">
-          {questions[0].options.map((option, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleOptionClick(idx)}
-              className={`shape-button ${
-                selectedOption === idx ? "selected" : ""
-              }`}
-              style={{
-                backgroundColor: option.color,
-                fontSize: "3.5rem",
-                color: "white",
-                border:
-                  selectedOption === idx
-                    ? "4px solid white"
-                    : "3px solid transparent",
-                transition: "transform 0.2s, border 0.2s",
-                transform:
-                  selectedOption === idx ? "scale(1.1)" : "scale(1.0)",
-                borderRadius: "16px",
-                width: "90px",
-                height: "90px",
-              }}
-              disabled={showResult}
+      <div className="container flex-grow-1 d-flex align-items-center justify-content-center">
+        <div className="text-center">
+          <div
+            className="d-inline-block p-5 rounded-4 mb-4"
+            style={{ backgroundColor: "#FCD34D" }}
+          >
+            <div style={{ fontSize: "6rem" }} className="mb-3">
+              🎉
+            </div>
+            <h1
+              className="fw-bold mb-3"
+              style={{ color: "var(--text-dark)" }}
             >
-              {option.shape}
-            </button>
-          ))}
-        </div>
-
-        {showResult && (
-          <div className="text-center mt-5">
-            {selectedOption !== null &&
-            questions[0].options[selectedOption].isCorrect ? (
-              <h2 className="fw-bold text-success">✨ Correto! Muito bem!</h2>
-            ) : (
-              <h2 className="fw-bold text-danger">❌ Tente novamente!</h2>
-            )}
+              Parabéns!
+            </h1>
+            <h4 style={{ color: "var(--text-dark)" }}>
+              Você conseguiu passar de todas as fases!
+            </h4>
           </div>
-        )}
+
+          <div className="d-flex gap-3 justify-content-center flex-wrap">
+            <button
+              className="btn btn-yellow btn-lg px-4"
+              onClick={() => navigate("/games")} // Corrigi para navigate
+            >
+              Jogar Novamente
+            </button>
+            <button
+              className="btn btn-purple btn-lg px-4"
+              onClick={() => navigate("/user/dashboard")} // Corrigi para navigate
+            >
+              Voltar ao Início
+            </button>
+          </div>
+
+          <div className="mt-5">
+            <div
+              className="d-inline-block p-4 rounded-4"
+              style={{
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+                backdropFilter: "blur(10px)",
+              }}
+            >
+              <h5 className="text-white mb-3">Suas Conquistas:</h5>
+              <div className="d-flex gap-3 justify-content-center">
+                <div style={{ fontSize: "2rem" }}>🏆</div>
+                <div style={{ fontSize: "2rem" }}>⭐</div>
+                <div style={{ fontSize: "2rem" }}>🎯</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <Footer />
     </div>
