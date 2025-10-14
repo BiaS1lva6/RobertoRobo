@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import EyeOverlay from "./EyeOverlay";
 
 export default function InactivityEyes({ timeout = 5000 }) {
   const [inactive, setInactive] = useState(false); // Estado para rastrear inatividade
@@ -33,14 +34,5 @@ export default function InactivityEyes({ timeout = 5000 }) {
     };
   }, [inactive, timeout]); // O efeito depende de `inactive` e `timeout`
 
-  return (
-    inactive && (
-      <div
-        className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
-        style={{ color: "white", fontSize: "2rem", fontWeight: "bold" }}
-      >
-        Você está inativo!
-      </div>
-    )
-  );
+  return inactive ? <EyeOverlay /> : null;
 }

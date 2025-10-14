@@ -1,16 +1,38 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
+import VirtualKeyboard from "../components/VirtualKeyboard";
 
 export default function RegisterTutor() {
   const navigate = useNavigate();
   const { registerTutor } = useAuth();
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const [activeField, setActiveField] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     senha: "",
     responsavelPor: "", // Campo para o usuário responsável
   });
+
+  const handleInputFocus = (field) => {
+    setActiveField(field); // Define o campo ativo
+    setKeyboardVisible(true); // Mostra o teclado virtual
+  };
+
+  const handleNextField = (currentField) => {
+    // Define a ordem dos campos
+    const fields = ["name", "email", "senha", "responsavelPor"];
+    const currentIndex = fields.indexOf(currentField);
+    const nextField = fields[currentIndex + 1];
+
+    if (nextField) {
+      setActiveField(nextField); // Move para o próximo campo
+    } else {
+      setKeyboardVisible(false); // Fecha o teclado se não houver próximo campo
+      handleContinue(); // Envia as informações
+    }
+  };
 
   const handleContinue = () => {
     // Validação dos campos obrigatórios
@@ -90,6 +112,7 @@ export default function RegisterTutor() {
               type="text"
               className="form-input"
               value={formData.name}
+              onFocus={() => handleInputFocus("name")}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
@@ -113,6 +136,7 @@ export default function RegisterTutor() {
               type="email"
               className="form-input"
               value={formData.email}
+              onFocus={() => handleInputFocus("email")}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
@@ -136,6 +160,7 @@ export default function RegisterTutor() {
               type="password"
               className="form-input"
               value={formData.senha}
+              onFocus={() => handleInputFocus("senha")}
               onChange={(e) =>
                 setFormData({ ...formData, senha: e.target.value })
               }
@@ -159,6 +184,7 @@ export default function RegisterTutor() {
               type="text"
               className="form-input"
               value={formData.responsavelPor}
+              onFocus={() => handleInputFocus("responsavelPor")}
               onChange={(e) =>
                 setFormData({ ...formData, responsavelPor: e.target.value })
               }
@@ -176,6 +202,14 @@ export default function RegisterTutor() {
           </button>
         </form>
       </div>
+      <VirtualKeyboard
+        visible={keyboardVisible}
+        activeField={activeField}
+        formData={formData}
+        setFormData={setFormData}
+        onClose={() => setKeyboardVisible(false)}
+        onNextField={handleNextField}
+      />
     </div>
   );
 }
