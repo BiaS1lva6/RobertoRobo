@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import EyeOverlay from "./EyeOverlay";
 
-export default function InactivityEyes({ timeout = 5000 }) {
+export default function InactivityEyes({ timeout = 9000 }) {
   const [inactive, setInactive] = useState(false); // Estado para rastrear inatividade
   const timeoutIdRef = useRef(null); // Armazena o timeoutId sem causar re-renderizações
 

@@ -39,14 +39,16 @@ export default function SequenceGame() {
   );
   const [timer, setTimer] = useState(0);
   const [showSequence, setShowSequence] = useState(false);
-  const [gameMessage, setGameMessage] = useState("Clique em Iniciar para começar!");
+  const [gameMessage, setGameMessage] = useState(
+    "Clique em Iniciar para começar!"
+  );
   const intervalRef = useRef(null);
   const [round, setRound] = useState(1);
 
   // Timer
   useEffect(() => {
     if (gameStarted && !gameComplete) {
-      intervalRef.current = setInterval(() => setTimer(t => t + 1), 1000);
+      intervalRef.current = setInterval(() => setTimer((t) => t + 1), 1000);
     }
     return () => clearInterval(intervalRef.current);
   }, [gameStarted, gameComplete]);
@@ -105,7 +107,7 @@ export default function SequenceGame() {
     if (nextSequence.length === sequence.length) {
       setGameComplete(true);
       setGameMessage("🎉 Parabéns! Próxima sequência...");
-      setScore(prev => prev + sequence.length * 10);
+      setScore((prev) => prev + sequence.length * 10);
       clearInterval(intervalRef.current);
       return;
     } else {
@@ -132,27 +134,29 @@ export default function SequenceGame() {
     setGameComplete(false);
     setGameMessage("Memorize a sequência!");
     setTimer(0);
-    setRound(r => r + 1);
-    intervalRef.current = setInterval(() => setTimer(t => t + 1), 1000);
+    setRound((r) => r + 1);
+    intervalRef.current = setInterval(() => setTimer((t) => t + 1), 1000);
     showSequenceToUser();
   }
 
   // HEADER fixo com pontuação e tempo usando Bootstrap Icons
   const Header = () => (
-    <div style={{
-      width: '100%',
-      background: 'linear-gradient(90deg, #7c3aed 60%, #fde68a 100%)',
-      padding: '14px 0 12px 0',
-      borderRadius: '18px 18px 0 0',
-      boxShadow: '0 2px 8px #0002',
-      display: 'flex',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      fontWeight: 'bold',
-      fontSize: '1.2rem',
-      color: '#fff',
-      marginBottom: '0px'
-    }}>
+    <div
+      style={{
+        width: "100%",
+        background: "linear-gradient(90deg, #7c3aed 60%, #fde68a 100%)",
+        padding: "14px 0 12px 0",
+        borderRadius: "18px 18px 0 0",
+        boxShadow: "0 2px 8px #0002",
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
+        fontWeight: "bold",
+        fontSize: "1.2rem",
+        color: "#fff",
+        marginBottom: "0px",
+      }}
+    >
       <span>
         <i className="bi bi-clock-history"></i> Tempo:{" "}
         <span style={{ fontFamily: "monospace" }}>{formatTimer(timer)}</span>
@@ -167,31 +171,36 @@ export default function SequenceGame() {
       </span>
       <span>
         <i className="bi bi-list-ol"></i> Fase:{" "}
-        <span>{round}/{MAX_ROUNDS}</span>
+        <span>
+          {round}/{MAX_ROUNDS}
+        </span>
       </span>
     </div>
   );
 
   return (
     <div className="purple-gradient d-flex flex-column align-items-center justify-content-center min-vh-100">
-            <button
-  onClick={() => router(-1)}
-  style={{
-    position: "absolute",
-    top: "20px",
-    right: "20px",
-    background: "white",
-    border: "none",
-    borderRadius: "10px",
-    padding: "0.5rem 1rem",
-    color: "var(--text-purple)",
-    fontWeight: "600",
-    cursor: "pointer",
-  }}
->
-  Voltar
-</button>
-      <div className="yellow-card" style={{maxWidth:'600px', width:'100%', padding:0}}>
+      <button
+        onClick={() => router(-1)}
+        style={{
+          position: "absolute",
+          top: "20px",
+          right: "20px",
+          background: "white",
+          border: "none",
+          borderRadius: "10px",
+          padding: "0.5rem 1rem",
+          color: "var(--text-purple)",
+          fontWeight: "600",
+          cursor: "pointer",
+        }}
+      >
+        Voltar
+      </button>
+      <div
+        className="yellow-card"
+        style={{ maxWidth: "600px", width: "100%", padding: 0 }}
+      >
         {/* Header fixo */}
         <Header />
         <div className="p-4">
@@ -199,7 +208,9 @@ export default function SequenceGame() {
             <h1>Jogo das Formas</h1>
           </div>
           <h5 className="fw-bold text-purple mb-3">
-            {showSequence ? "Memorize a sequência:" : "Clique nas formas na mesma ordem:"}
+            {showSequence
+              ? "Memorize a sequência:"
+              : "Clique nas formas na mesma ordem:"}
           </h5>
           {/* Sequência a ser seguida (slots) só aparecem durante showSequence */}
           {showSequence && (
@@ -219,7 +230,7 @@ export default function SequenceGame() {
                     borderRadius: "18px",
                     fontSize: "2.5rem",
                     boxShadow: "0 2px 8px #0002",
-                    color: "#fff"
+                    color: "#fff",
                   }}
                 >
                   {/* Bootstrap Icon */}
@@ -236,8 +247,15 @@ export default function SequenceGame() {
                   key={idx}
                   className="shape-slot"
                   style={{
-                    backgroundColor: userSequence[idx] !== undefined ? shapes[userSequence[idx]].color : '#eee',
-                    border: "4px solid " + (userSequence[idx] !== undefined ? shapes[userSequence[idx]].color : '#ccc'),
+                    backgroundColor:
+                      userSequence[idx] !== undefined
+                        ? shapes[userSequence[idx]].color
+                        : "#eee",
+                    border:
+                      "4px solid " +
+                      (userSequence[idx] !== undefined
+                        ? shapes[userSequence[idx]].color
+                        : "#ccc"),
                     width: "60px",
                     height: "60px",
                     display: "flex",
@@ -246,14 +264,16 @@ export default function SequenceGame() {
                     borderRadius: "18px",
                     fontSize: "2rem",
                     boxShadow: "0 2px 8px #0002",
-                    color: "#fff"
+                    color: "#fff",
                   }}
                 >
                   {/* Mostra o ícone da forma clicada ou um ponto de interrogação */}
                   {userSequence[idx] !== undefined ? (
-                    <i className={`bi bi-${shapes[userSequence[idx]].icon}`}></i>
+                    <i
+                      className={`bi bi-${shapes[userSequence[idx]].icon}`}
+                    ></i>
                   ) : (
-                    <span style={{color:"#bbb"}}>?</span>
+                    <span style={{ color: "#bbb" }}>?</span>
                   )}
                 </div>
               ))}
@@ -261,45 +281,61 @@ export default function SequenceGame() {
           )}
           {/* Botões de escolha -- cada botão mostra o ícone Bootstrap */}
           <div className="choices d-flex justify-content-center flex-wrap gap-3 mb-3">
-  {shapes.map((shape, idx) => (
-    <button
-      key={shape.id}
-      onClick={() => handleShapeClick(idx)}
-      className="shape-button"
-      style={{
-        backgroundColor: "#fff",
-        border: `6px solid ${shape.color}`,
-        borderRadius: "20px",
-        padding: "20px",
-        width: "100px",
-        height: "100px",
-        boxShadow: "0 4px 16px #0002",
-        fontSize: "2.5rem",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-      disabled={!gameStarted || gameComplete || showSequence}
-    >
-      <i className={`bi bi-${shape.icon}`}></i>
-    </button>
-  ))}
-</div>
+            {shapes.map((shape, idx) => (
+              <button
+                key={shape.id}
+                onClick={() => handleShapeClick(idx)}
+                className="shape-button"
+                style={{
+                  backgroundColor: `${shape.color}`,
+                  border: `6px solid ${shape.color}`,
+                  borderRadius: "20px",
+                  padding: "20px",
+                  width: "100px",
+                  height: "100px",
+                  boxShadow: "0 4px 16px #0002",
+                  fontSize: "2.5rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                disabled={!gameStarted || gameComplete || showSequence}
+              >
+                <i className={`bi bi-${shape.icon}`}></i>
+              </button>
+            ))}
+          </div>
           {/* Mensagem do jogo */}
-          <div className="game-msg mb-3 text-center fw-bold" style={{fontSize:'1.2rem', color:'#7c3aed', textShadow:'1px 1px 2px #fff'}}>
+          <div
+            className="game-msg mb-3 text-center fw-bold"
+            style={{
+              fontSize: "1.2rem",
+              color: "#7c3aed",
+              textShadow: "1px 1px 2px #fff",
+            }}
+          >
             {gameMessage}
           </div>
           {/* Botão de iniciar só no começo */}
           {!gameStarted && (
             <div className="d-flex justify-content-center mt-3">
-              <button className="btn-purple" style={{fontWeight:'bold', fontSize:'1.2rem', borderRadius:'16px', padding:'10px 24px'}} onClick={startGame}>
+              <button
+                className="btn-purple"
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "1.2rem",
+                  borderRadius: "16px",
+                  padding: "10px 24px",
+                }}
+                onClick={startGame}
+              >
                 Iniciar
               </button>
             </div>
           )}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

@@ -121,10 +121,10 @@ export default function GamesMenu() {
               <div style={{ fontSize: "5rem" }}>🔷</div>
             </div>
             <h3 style={{ color: "#1F2937", fontWeight: "700", fontSize: "1.5rem", marginBottom: "1rem" }}>
-              Jogo das Formas
+              Jogo da Memoria
             </h3>
             <p style={{ color: "#1F2937", fontSize: "0.95rem", marginBottom: "1.5rem", lineHeight: "1.5" }}>
-              Encontre a forma certa que se encaixa no espaço vazio da figura
+            Teste sua memória e encontre todos os pares de formas iguais no menor tempo possível.
             </p>
             <button
               onClick={() => navigate("/shapes-game")}
