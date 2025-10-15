@@ -27,6 +27,7 @@ function formatTimer(totalSeconds) {
 const MAX_ROUNDS = 5; // Defina quantas rodadas até mostrar GameComplete
 
 export default function SequenceGame() {
+  const router = useNavigate();
   const navigate = useNavigate();
   const [sequence, setSequence] = useState(generateRandomSequence());
   const [userSequence, setUserSequence] = useState([]);
@@ -173,6 +174,23 @@ export default function SequenceGame() {
 
   return (
     <div className="purple-gradient d-flex flex-column align-items-center justify-content-center min-vh-100">
+            <button
+  onClick={() => router(-1)}
+  style={{
+    position: "absolute",
+    top: "20px",
+    right: "20px",
+    background: "white",
+    border: "none",
+    borderRadius: "10px",
+    padding: "0.5rem 1rem",
+    color: "var(--text-purple)",
+    fontWeight: "600",
+    cursor: "pointer",
+  }}
+>
+  Voltar
+</button>
       <div className="yellow-card" style={{maxWidth:'600px', width:'100%', padding:0}}>
         {/* Header fixo */}
         <Header />
