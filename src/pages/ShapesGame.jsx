@@ -240,9 +240,6 @@ export default function ShapesGame() {
         </div>
       </div>
       <Footer />
-      {/* Certifique-se de importar o CSS do Bootstrap Icons no seu index.html ou App.jsx:
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-      */}
     </div>
   );
 }

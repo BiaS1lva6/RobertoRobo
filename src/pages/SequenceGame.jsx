@@ -228,6 +228,37 @@ export default function SequenceGame() {
               ))}
             </div>
           )}
+          {/* Sequência que o usuário está fazendo */}
+          {gameStarted && !showSequence && (
+            <div className="d-flex justify-content-center gap-3 mb-4">
+              {sequence.map((_, idx) => (
+                <div
+                  key={idx}
+                  className="shape-slot"
+                  style={{
+                    backgroundColor: userSequence[idx] !== undefined ? shapes[userSequence[idx]].color : '#eee',
+                    border: "4px solid " + (userSequence[idx] !== undefined ? shapes[userSequence[idx]].color : '#ccc'),
+                    width: "60px",
+                    height: "60px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "18px",
+                    fontSize: "2rem",
+                    boxShadow: "0 2px 8px #0002",
+                    color: "#fff"
+                  }}
+                >
+                  {/* Mostra o ícone da forma clicada ou um ponto de interrogação */}
+                  {userSequence[idx] !== undefined ? (
+                    <i className={`bi bi-${shapes[userSequence[idx]].icon}`}></i>
+                  ) : (
+                    <span style={{color:"#bbb"}}>?</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
           {/* Botões de escolha -- cada botão mostra o ícone Bootstrap */}
           <div className="choices d-flex justify-content-center flex-wrap gap-3 mb-3">
   {shapes.map((shape, idx) => (
