@@ -41,7 +41,7 @@ function App() {
     <Router>
       <AuthProvider>
         <div>
-          <InactivityEyes timeout={5000} />
+          <InactivityEyes timeout={90000} />
           <Routes>
             {/* Redireciona o caminho raiz para a página de login */}
             <Route path="/" element={<Navigate to="/login" />} />

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import characterImg from "../assets/character.png"; // ajuste o caminho se necessário
+import characterImg from "../assets/persona2.jpg"; // ajuste o caminho se necessário
 import Footer from "../components/Footer";
 
 export default function GameComplete() {

@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
-import Header from "../components/Header";
 import { useNavigate } from "react-router";
+import characterImg from "../assets/character.png"; // ajuste o caminho se necessário
 
 // 6 pares de ícones (12 quadrados)
 const PAIRS = [
-  { icon: "bi-alarm", color: "#22D3EE" }, { icon: "bi-alarm", color: "#22D3EE" },
-  { icon: "bi-battery-full", color: "#3B82F6" }, { icon: "bi-battery-full", color: "#3B82F6" },
-  { icon: "bi-heart-fill", color: "#F43F5E" }, { icon: "bi-heart-fill", color: "#F43F5E" },
-  { icon: "bi-star-fill", color: "#FCD34D" }, { icon: "bi-star-fill", color: "#FCD34D" },
-  { icon: "bi-lightning-charge-fill", color: "#A855F7" }, { icon: "bi-lightning-charge-fill", color: "#A855F7" },
-  { icon: "bi-emoji-smile-fill", color: "#10B981" }, { icon: "bi-emoji-smile-fill", color: "#10B981" }
+  { icon: "bi-alarm", color: "#22D3EE" },
+  { icon: "bi-alarm", color: "#22D3EE" },
+  { icon: "bi-battery-full", color: "#3B82F6" },
+  { icon: "bi-battery-full", color: "#3B82F6" },
+  { icon: "bi-heart-fill", color: "#F43F5E" },
+  { icon: "bi-heart-fill", color: "#F43F5E" },
+  { icon: "bi-star-fill", color: "#FCD34D" },
+  { icon: "bi-star-fill", color: "#FCD34D" },
+  { icon: "bi-lightning-charge-fill", color: "#A855F7" },
+  { icon: "bi-lightning-charge-fill", color: "#A855F7" },
+  { icon: "bi-emoji-smile-fill", color: "#10B981" },
+  { icon: "bi-emoji-smile-fill", color: "#10B981" },
 ];
 
 const TOTAL_PHASES = 5;
@@ -24,7 +30,15 @@ function shuffle(array) {
   return arr;
 }
 
+// Formatar timer
+function formatTimer(totalSeconds) {
+  const min = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+  const sec = String(totalSeconds % 60).padStart(2, "0");
+  return `${min}:${sec}`;
+}
+
 export default function ShapesGame() {
+  const MAX_ROUNDS = 5;
   const router = useNavigate();
   const [started, setStarted] = useState(false);
   const [timer, setTimer] = useState(0);
@@ -37,11 +51,12 @@ export default function ShapesGame() {
   const [moves, setMoves] = useState(0);
   const [message, setMessage] = useState("");
   const [victory, setVictory] = useState(false);
+  const [round, setRound] = useState(1);
 
   // Timer
   useEffect(() => {
     if (started && !victory) {
-      const id = setInterval(() => setTimer(t => t + 1), 1000);
+      const id = setInterval(() => setTimer((t) => t + 1), 1000);
       setIntervalId(id);
       return () => clearInterval(id);
     }
@@ -64,7 +79,8 @@ export default function ShapesGame() {
   // Lógica do clique
   function handleCardClick(idx) {
     if (!started || victory) return;
-    if (flipped.length === 2 || flipped.includes(idx) || matched.includes(idx)) return;
+    if (flipped.length === 2 || flipped.includes(idx) || matched.includes(idx))
+      return;
 
     const newFlipped = [...flipped, idx];
     setFlipped(newFlipped);
@@ -152,11 +168,14 @@ export default function ShapesGame() {
                   background: cards[idx].color,
                 }}
               >
-                <i className={`bi ${cards[idx].icon}`} style={{
-                  fontSize: "2.5rem",
-                  color: "#fff",
-                  textShadow: "0 2px 12px #0002"
-                }}></i>
+                <i
+                  className={`bi ${cards[idx].icon}`}
+                  style={{
+                    fontSize: "2.5rem",
+                    color: "#fff",
+                    textShadow: "0 2px 12px #0002",
+                  }}
+                ></i>
               </div>
               {/* Verso (branco, sem borda) */}
               <div
@@ -170,12 +189,16 @@ export default function ShapesGame() {
         );
       }
       grid.push(
-        <div className="shapes-row" key={row} style={{
-          display: "flex",
-          gap: "24px",
-          marginBottom: "8px",
-          justifyContent: "center"
-        }}>
+        <div
+          className="shapes-row"
+          key={row}
+          style={{
+            display: "flex",
+            gap: "24px",
+            marginBottom: "8px",
+            justifyContent: "center",
+          }}
+        >
           {cols}
         </div>
       );
@@ -183,8 +206,44 @@ export default function ShapesGame() {
     return grid;
   }
 
+  const Header = () => (
+    <div
+      style={{
+        width: "100%",
+        background: "#7c3aed",
+        padding: "14px 0 12px 0",
+        borderRadius: "18px 18px 0 0",
+        boxShadow: "0 2px 8px #0002",
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
+        fontWeight: "bold",
+        fontSize: "1.2rem",
+        color: "#fff",
+        marginBottom: "0px",
+      }}
+    >
+      <span>
+        <i className="bi bi-clock-history"></i> Tempo:{" "}
+        <span style={{ fontFamily: "monospace" }}>{formatTimer(timer)}</span>
+      </span>
+      <span>
+        <i className="bi bi-trophy-fill"></i> Pontuação:{" "}
+        <span style={{ color: "#10B981" }}>{score}</span>
+      </span>
+      <span>
+        <i className="bi bi-list-ol"></i> Fase:{" "}
+        <span>
+          {round}/{MAX_ROUNDS}
+        </span>
+      </span>
+    </div>
+  );
   return (
-    <div className="purple-gradient d-flex flex-column align-items-center justify-content-center min-vh-100" style={{ position: "relative"}}>
+    <div
+      className="purple-gradient d-flex flex-column align-items-center justify-content-center min-vh-100"
+      style={{ position: "relative" }}
+    >
       <button
         onClick={() => router(-1)}
         style={{
@@ -203,38 +262,50 @@ export default function ShapesGame() {
       >
         Voltar
       </button>
-      <div className="yellow-card" style={{ maxWidth: '600px', width: '100%', padding: 0 }}>
+      <div
+        className="yellow-card"
+        style={{ maxWidth: "600px", width: "100%", padding: 0 }}
+      >
+        <div className="position-relative z-0">
+          <img
+            className="position-absolute w-50"
+            style={{ top: -200, left: -200 }}
+            src={characterImg}
+            alt=""
+            srcset=""
+          />
+        </div>
         {/* Header fixo */}
         <Header />
         <div className="p-4">
           <div className="title-bubble mb-4">
             <h1>Jogo das Formas</h1>
           </div>
-          <div style={{
-            background: "linear-gradient(90deg, var(--purple-end) 70%, var(--yellow-card) 100%)",
-            color: "#fff",
-            fontWeight: "bold",
-            borderRadius: "16px 16px 0 0",
-            padding: "12px 18px",
-            fontSize: "1.08rem",
-            marginBottom: "20px",
-            display: "flex",
-            justifyContent: "space-between",
-          }}>
-            <span>Tempo: {formatTime(timer)}</span>
-            <span>Pontuação: {score}</span>
-            <span>Fase: {phase}/{TOTAL_PHASES}</span>
-          </div>
-          <p style={{ color: "var(--text-purple)", fontWeight: 600 }}>Encontre todos os pares de formas!</p>
+          <p style={{ color: "var(--text-purple)", fontWeight: 600 }}>
+            Encontre todos os pares de formas!
+          </p>
           <div style={{ margin: "24px 0" }}>
             {cards.length === 12 && renderGrid()}
           </div>
-          <div style={{ minHeight: "40px", color: "var(--purple-end)", fontWeight: "bold", fontSize: "1.1rem" }}>{message}</div>
+          <div
+            style={{
+              minHeight: "40px",
+              color: "var(--purple-end)",
+              fontWeight: "bold",
+              fontSize: "1.1rem",
+            }}
+          >
+            {message}
+          </div>
           {!started ? (
-            <button className="btn-purple" onClick={startGame}>Iniciar</button>
+            <button className="btn-purple" onClick={startGame}>
+              Iniciar
+            </button>
           ) : (
             victory && (
-              <button className="btn-purple" onClick={restartGame}>Jogar Novamente</button>
+              <button className="btn-purple" onClick={restartGame}>
+                Jogar Novamente
+              </button>
             )
           )}
         </div>

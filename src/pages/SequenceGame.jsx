@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import Footer from "../components/Footer";
+import characterImg from "../assets/character.png"; // ajuste o caminho se necessário
 
 // Formas disponíveis usando Bootstrap Icons
 const shapes = [
@@ -141,41 +142,39 @@ export default function SequenceGame() {
 
   // HEADER fixo com pontuação e tempo usando Bootstrap Icons
   const Header = () => (
-    <div
-      style={{
-        width: "100%",
-        background: "linear-gradient(90deg, #7c3aed 60%, #fde68a 100%)",
-        padding: "14px 0 12px 0",
-        borderRadius: "18px 18px 0 0",
-        boxShadow: "0 2px 8px #0002",
-        display: "flex",
-        justifyContent: "space-around",
-        alignItems: "center",
-        fontWeight: "bold",
-        fontSize: "1.2rem",
-        color: "#fff",
-        marginBottom: "0px",
-      }}
-    >
-      <span>
-        <i className="bi bi-clock-history"></i> Tempo:{" "}
-        <span style={{ fontFamily: "monospace" }}>{formatTimer(timer)}</span>
-      </span>
-      <span>
-        <i className="bi bi-trophy-fill"></i> Pontuação:{" "}
-        <span style={{ color: "#10B981" }}>{score}</span>
-      </span>
-      <span>
-        <i className="bi bi-award-fill"></i> Melhor:{" "}
-        <span style={{ color: "#FACC15" }}>{bestScore}</span>
-      </span>
-      <span>
-        <i className="bi bi-list-ol"></i> Fase:{" "}
+    <>
+      <div
+        style={{
+          width: "100%",
+          background: "#7c3aed",
+          padding: "14px 0 12px 0",
+          borderRadius: "18px 18px 0 0",
+          boxShadow: "0 2px 8px #0002",
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center",
+          fontWeight: "bold",
+          fontSize: "1.2rem",
+          color: "#fff",
+          marginBottom: "0px",
+        }}
+      >
         <span>
-          {round}/{MAX_ROUNDS}
+          <i className="bi bi-clock-history"></i> Tempo:{" "}
+          <span style={{ fontFamily: "monospace" }}>{formatTimer(timer)}</span>
         </span>
-      </span>
-    </div>
+        <span>
+          <i className="bi bi-trophy-fill"></i> Pontuação:{" "}
+          <span style={{ color: "#10B981" }}>{score}</span>
+        </span>
+        <span>
+          <i className="bi bi-list-ol"></i> Fase:{" "}
+          <span>
+            {round}/{MAX_ROUNDS}
+          </span>
+        </span>
+      </div>
+    </>
   );
 
   return (
@@ -198,9 +197,18 @@ export default function SequenceGame() {
         Voltar
       </button>
       <div
-        className="yellow-card"
+        className="yellow-card z-1"
         style={{ maxWidth: "600px", width: "100%", padding: 0 }}
       >
+        <div className="position-relative z-0">
+          <img
+            className="position-absolute w-50"
+            style={{ top: -200, left: -200 }}
+            src={characterImg}
+            alt=""
+            srcset=""
+          />
+        </div>
         {/* Header fixo */}
         <Header />
         <div className="p-4">
