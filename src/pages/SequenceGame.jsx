@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "../components/Footer";
 
-// Formas disponíveis
+// Formas disponíveis usando Bootstrap Icons
 const shapes = [
-  { id: "triangle", name: "Triângulo", color: "#10B981", symbol: "▲" },
-  { id: "square", name: "Quadrado", color: "#3B82F6", symbol: "■" },
-  { id: "circle", name: "Círculo", color: "#E11D48", symbol: "●" },
-  { id: "star", name: "Estrela", color: "#FACC15", symbol: "★" },
+  { id: "triangle", name: "Triângulo", color: "#10B981", icon: "triangle" },
+  { id: "square", name: "Quadrado", color: "#3B82F6", icon: "square" },
+  { id: "circle", name: "Círculo", color: "#E11D48", icon: "circle" },
+  { id: "star", name: "Estrela", color: "#FACC15", icon: "star" },
 ];
 
 // Gerar sequência aleatória
@@ -137,7 +136,7 @@ export default function SequenceGame() {
     showSequenceToUser();
   }
 
-  // HEADER fixo com pontuação e tempo
+  // HEADER fixo com pontuação e tempo usando Bootstrap Icons
   const Header = () => (
     <div style={{
       width: '100%',
@@ -153,10 +152,22 @@ export default function SequenceGame() {
       color: '#fff',
       marginBottom: '0px'
     }}>
-      <span>⏰ Tempo: <span style={{fontFamily:'monospace'}}>{formatTimer(timer)}</span></span>
-      <span>🏆 Pontuação: <span style={{color:'#10B981'}}>{score}</span></span>
-      <span>🔝 Melhor: <span style={{color:'#FACC15'}}>{bestScore}</span></span>
-      <span>🔢 Fase: <span>{round}/{MAX_ROUNDS}</span></span>
+      <span>
+        <i className="bi bi-clock-history"></i> Tempo:{" "}
+        <span style={{ fontFamily: "monospace" }}>{formatTimer(timer)}</span>
+      </span>
+      <span>
+        <i className="bi bi-trophy-fill"></i> Pontuação:{" "}
+        <span style={{ color: "#10B981" }}>{score}</span>
+      </span>
+      <span>
+        <i className="bi bi-award-fill"></i> Melhor:{" "}
+        <span style={{ color: "#FACC15" }}>{bestScore}</span>
+      </span>
+      <span>
+        <i className="bi bi-list-ol"></i> Fase:{" "}
+        <span>{round}/{MAX_ROUNDS}</span>
+      </span>
     </div>
   );
 
@@ -166,84 +177,65 @@ export default function SequenceGame() {
         {/* Header fixo */}
         <Header />
         <div className="p-4">
-          <div className="logo-container mb-3">
-            <i className="bi bi-shapes"></i>
-          </div>
           <div className="title-bubble mb-4">
             <h1>Jogo das Formas</h1>
           </div>
           <h5 className="fw-bold text-purple mb-3">
             {showSequence ? "Memorize a sequência:" : "Clique nas formas na mesma ordem:"}
           </h5>
-          {/* Sequência a ser seguida */}
-          <div className="d-flex justify-content-center gap-3 mb-4">
-            {showSequence
-              ? sequence.map((shapeIdx, idx) => (
-                  <div
-                    key={idx}
-                    className="shape-slot"
-                    style={{
-                      backgroundColor: shapes[shapeIdx].color,
-                      border: "4px solid " + shapes[shapeIdx].color,
-                      width: "80px",
-                      height: "80px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      borderRadius: "18px",
-                      fontSize: "2.5rem",
-                      boxShadow: "0 2px 8px #0002",
-                      color: "#fff"
-                    }}
-                  >
-                    {shapes[shapeIdx].symbol}
-                  </div>
-                ))
-              : sequence.map((shapeIdx, idx) => (
-                  <div
-                    key={idx}
-                    className="shape-slot"
-                    style={{
-                      background: "#fff",
-                      border: `4px solid ${shapes[shapeIdx].color}`,
-                      width: "80px",
-                      height: "80px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      borderRadius: "18px",
-                      fontSize: "2.5rem",
-                      boxShadow: "0 2px 8px #0002"
-                    }}
-                  ></div>
-                ))}
-          </div>
-          {/* Botões de escolha -- agora cada botão mostra a forma */}
+          {/* Sequência a ser seguida (slots) só aparecem durante showSequence */}
+          {showSequence && (
+            <div className="d-flex justify-content-center gap-3 mb-4">
+              {sequence.map((shapeIdx, idx) => (
+                <div
+                  key={idx}
+                  className="shape-slot"
+                  style={{
+                    backgroundColor: shapes[shapeIdx].color,
+                    border: "4px solid " + shapes[shapeIdx].color,
+                    width: "80px",
+                    height: "80px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "18px",
+                    fontSize: "2.5rem",
+                    boxShadow: "0 2px 8px #0002",
+                    color: "#fff"
+                  }}
+                >
+                  {/* Bootstrap Icon */}
+                  <i className={`bi bi-${shapes[shapeIdx].icon}`}></i>
+                </div>
+              ))}
+            </div>
+          )}
+          {/* Botões de escolha -- cada botão mostra o ícone Bootstrap */}
           <div className="choices d-flex justify-content-center flex-wrap gap-3 mb-3">
-            {shapes.map((shape, idx) => (
-              <button
-                key={shape.id}
-                onClick={() => handleShapeClick(idx)}
-                className="shape-button"
-                style={{
-                  backgroundColor: "#fff",
-                  border: `6px solid ${shape.color}`,
-                  borderRadius: "20px",
-                  padding: "20px",
-                  width: "100px",
-                  height: "100px",
-                  boxShadow: "0 4px 16px #0002",
-                  fontSize: "2.5rem",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
-                disabled={!gameStarted || gameComplete || showSequence}
-              >
-                {shape.symbol}
-              </button>
-            ))}
-          </div>
+  {shapes.map((shape, idx) => (
+    <button
+      key={shape.id}
+      onClick={() => handleShapeClick(idx)}
+      className="shape-button"
+      style={{
+        backgroundColor: "#fff",
+        border: `6px solid ${shape.color}`,
+        borderRadius: "20px",
+        padding: "20px",
+        width: "100px",
+        height: "100px",
+        boxShadow: "0 4px 16px #0002",
+        fontSize: "2.5rem",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+      disabled={!gameStarted || gameComplete || showSequence}
+    >
+      <i className={`bi bi-${shape.icon}`}></i>
+    </button>
+  ))}
+</div>
           {/* Mensagem do jogo */}
           <div className="game-msg mb-3 text-center fw-bold" style={{fontSize:'1.2rem', color:'#7c3aed', textShadow:'1px 1px 2px #fff'}}>
             {gameMessage}

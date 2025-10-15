@@ -1,45 +1,117 @@
 import { useNavigate } from "react-router";
-import Header from "../components/Header";
+import characterImg from "../assets/character.png"; // ajuste o caminho se necessário
+import Footer from "../components/Footer";
 
 export default function GameComplete() {
-  const navigate = useNavigate(); // Substituí "router" por "navigate"
+  const navigate = useNavigate();
 
   return (
-    <div
-      className="purple-gradient d-flex flex-column"
-      style={{ minHeight: "100vh" }}
-    >
-      <Header title="Parabéns!" showBackButton={false} />
-
-      <div className="container flex-grow-1 d-flex align-items-center justify-content-center">
-        <div className="text-center">
+    <div className="purple-gradient" style={{ minHeight: "100vh", width: "100%" }}>
+      <div
+        className="container d-flex align-items-center justify-content-center"
+        style={{ minHeight: "calc(100vh - 80px)", zIndex: 2 }}
+      >
+        <div
+          className="d-flex flex-row align-items-center justify-content-center"
+          style={{ width: "100%", maxWidth: 1100 }}
+        >
+          {/* Mascote à esquerda, bem maior */}
           <div
-            className="d-inline-block p-5 rounded-4 mb-4"
-            style={{ backgroundColor: "#FCD34D" }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
+              marginRight: "0.5rem",
+            }}
           >
-            <div style={{ fontSize: "6rem" }} className="mb-3">
-              🎉
-            </div>
-            <h1 className="fw-bold mb-3">Jogo Completo!</h1>
-            <p className="mb-0">Você concluiu o jogo com sucesso.</p>
+            <img
+              src={characterImg}
+              alt="Personagem"
+              className="mascot"
+              style={{
+                width: "410px",
+                maxWidth: "38vw",
+                minWidth: "220px",
+                marginBottom: "0",
+                userSelect: "none",
+              }}
+            />
           </div>
-
-          <div className="mt-4">
-            <button
-              className="btn btn-yellow btn-lg px-4"
-              onClick={() => navigate("/games")} // Substituí "router.push" por "navigate"
+          {/* Card amarelo centralizado */}
+          <div className="yellow-card" style={{ minWidth: 370, maxWidth: 520 }}>
+            <h1
+              style={{
+                fontFamily: "'Luckiest Guy', cursive, sans-serif",
+                fontWeight: 900,
+                fontSize: "2.2rem",
+                color: "var(--text-purple)",
+                marginBottom: "1.2rem",
+                textShadow: "2px 2px 4px #fff8",
+                lineHeight: 1.1,
+              }}
             >
-              Jogar Novamente
-            </button>
-            <button
-              className="btn btn-purple btn-lg px-4"
-              onClick={() => navigate("/user/dashboard")} // Substituí "router.push" por "navigate"
+              Parabéns! Você conseguiu<br />
+              passar de todas as fases!
+            </h1>
+            <div
+              style={{
+                background: "rgba(255,255,255,0.6)",
+                borderRadius: "22px",
+                padding: "12px 24px",
+                marginBottom: "1.3rem",
+                fontWeight: "bold",
+                fontSize: "1.1rem",
+                color: "var(--text-purple)",
+                textAlign: "left",
+                boxShadow: "0 2px 10px rgba(0,0,0,0.07)",
+                maxWidth: "340px",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
             >
-              Voltar ao Início
-            </button>
+              <div>Pontuação de nível:</div>
+              <div>Pontuação total:</div>
+            </div>
+            <div
+              className="d-flex flex-row justify-content-center"
+              style={{ gap: "2rem", marginBottom: "1.1rem" }}
+            >
+              <button
+                className="btn btn-purple d-flex align-items-center justify-content-center"
+                onClick={() => navigate("/games")}
+                style={{
+                  backgroundColor: "#7c3aed", // Fundo roxo
+                  color: "#fff",
+                  minWidth: "170px",
+                  gap: "0.7rem",
+                  fontWeight: "700",
+                  fontSize: "1.08rem",
+                }}
+              >
+                <i className="bi bi-controller" style={{ fontSize: "1.7rem" }}></i>
+                Jogar Novamente
+              </button>
+              <button
+                className="btn btn-purple d-flex align-items-center justify-content-center"
+                onClick={() => navigate("/dashboard")}
+                style={{
+                  backgroundColor: "#7c3aed", // Fundo roxo
+                  color: "#fff",
+                  minWidth: "170px",
+                  gap: "0.7rem",
+                  fontWeight: "700",
+                  fontSize: "1.08rem",
+                }}
+              >
+                <i className="bi bi-list" style={{ fontSize: "1.7rem" }}></i>
+                Voltar ao Início
+              </button>
+            </div>
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }
